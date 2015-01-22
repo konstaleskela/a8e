@@ -34,8 +34,8 @@ GEM
     capistrano-bundler (1.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano-puma (0.2.3)
-      capistrano (>= 3.0)
+    capistrano-passenger (0.0.1)
+      capistrano (~> 3.0)
     capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -148,7 +148,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano-puma
+  capistrano-passenger
   capistrano-rails
   capistrano-rvm
   coffee-rails (~> 4.0.0)
