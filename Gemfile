@@ -33,7 +33,7 @@ gem 'jbuilder', '~> 1.2'
 group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-  gem 'capistrano-puma', require: false
+  gem 'capistrano-passenger', require: false
   gem 'pry-nav'
 end
 
