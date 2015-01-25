@@ -6,10 +6,13 @@
 .row.full { max-width: 100%; }
 .no-padding { padding: 0 !important; }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, p, ul {
   font-family: 'Josefin Sans', sans-serif !important;
 }
 p {
   font-size: 17px !important;
 }
 strong.emphasis { font-size: 18px; }
+ul {
+  font-size: 17px !important;
+}
