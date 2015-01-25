@@ -37,9 +37,6 @@ group :development do
   gem 'pry-nav'
 end
 
-group :production do
-  gem 'puma'
-end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
