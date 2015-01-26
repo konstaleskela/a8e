@@ -8,6 +8,7 @@
   text-align: center;
   background-image: url('http://i.istockimg.com/file_thumbview_approve/44728284/2/stock-photo-44728284-blured-lighhts-from-peak-victoria-hong-kong.jpg');
   background-size: cover;
+  background-position: 50%;
   position: relative;
 }
 #logo {
@@ -21,14 +22,49 @@
   height: 174px;
   width: 100%;
 }
-#content { margin-top: 30px; }
+#content-top, #content-bottom {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
 
+#spacer {
+  width: 100%;
+}
 
-#party hands {
+#party-hands {
   background-color: #999;
   height: 600px;
   text-align: center;
   background-image: url('http://i.istockimg.com/file_thumbview_approve/36680666/2/stock-photo-36680666-people-on-music-concert-disco-party-vintage.jpg');
   background-size: cover;
   position: relative;
-  }
+  background-position: 50% 70%;
+}
+
+#services-list {
+  & { margin-left: 20px; }
+  li { margin-bottom: 20px; }
+}
+
+#contact-info {
+  & { border: none; }
+  tr { background-color: transparent; }
+  td.img { width: 200px; }
+  td.info { line-height: 20px; }
+}
+
+#granpa {
+  background-image: url('http://i.istockimg.com/file_thumbview_approve/23863117/2/stock-photo-23863117-grandpa-dj.jpg');
+  position: absolute;
+  width: 45%;
+  left: 0px;
+  height: 429px;
+  top: 2720px;
+  z-index: -999;
+  background-position: 49% 88%;
+  background-size: cover;
+}
+@media (max-width: 840px) {
+  #granpa { display: none; }
+}
