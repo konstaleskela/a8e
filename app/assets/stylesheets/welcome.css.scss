@@ -48,9 +48,9 @@
 }
 
 #contact-info {
-  & { border: none; }
+  & { border: none; width: 100%; }
   tr { background-color: transparent; }
-  td.img { width: 200px; }
+  td.img { min-width: 180px; width: 180px; }
   td.info { line-height: 20px; }
 }
 
@@ -60,7 +60,7 @@
   width: 45%;
   left: 0px;
   height: 429px;
-  top: 2720px;
+  top: 2581px;
   z-index: -999;
   background-position: 49% 88%;
   background-size: cover;
