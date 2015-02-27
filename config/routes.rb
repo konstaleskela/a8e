@@ -4,7 +4,8 @@ Entertainment::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#under_construction'
-  get 'lay2' => 'welcome#lay2'
+  get 'proto' => 'welcome#proto'
+  post 'send-message' => 'feedback#send_message'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

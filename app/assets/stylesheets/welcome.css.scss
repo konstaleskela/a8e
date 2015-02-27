@@ -1,7 +1,12 @@
-// Place all the styles related to the welcome controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-//
+.row .columns {
+  padding-left: 2em;
+  padding-right: 2em;
+}
+#message-sent {
+  margin-left: -20%;
+  width: 40%;
+}
+
 #logo-wrapper {
   background-color: #999;
   height: 650px;
@@ -11,16 +16,15 @@
   background-position: 50%;
   position: relative;
 }
-#logo {
+
+@media (max-width: 528px) {
+  #logo-wrapper {
+    height: 350px;
+  }
 }
-#crowd {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-image: image-url('crowd.png');
-  height: 174px;
-  width: 100%;
-}
+
+#logo { }
+
 #content-top, #content-bottom {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -49,21 +53,36 @@
 #contact-info {
   & { border: none; width: 100%; }
   tr { background-color: transparent; }
-  td.img { min-width: 180px; width: 180px; }
+  td.img { min-width: 130px; width: 180px; }
   td.info { line-height: 20px; }
 }
 
-#granpa {
+#content-below-bottom {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+#contact-form-wrapper {
+  max-width: 400px;
+}
+
+#pappa {
   background-image: image-url('pappa.jpg');
   position: absolute;
   width: 45%;
   left: 0px;
-  height: 429px;
-  top: 2581px;
+  height: 489px;
+  top: 0;
   z-index: -999;
   background-position: 49% 88%;
   background-size: cover;
 }
-@media (max-width: 840px) {
-  #granpa { display: none; }
+#pappa-sep {
+  margin-top: 0;
+}
+@media (max-width: 768px) {
+  #pappa { display: none; }
+}
+@media (max-width: 528px) {
+  .hidden-for-tiny-only { display: none; }
 }

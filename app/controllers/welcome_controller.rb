@@ -3,7 +3,8 @@ class WelcomeController < ApplicationController
   def index
   end
 
-  def lay2
+  def proto
+    render :index
   end
 
   def under_construction

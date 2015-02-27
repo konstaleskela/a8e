@@ -77,4 +77,11 @@ Entertainment::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # SMTP settings
+  config.action_mailer.smtp_settings = {
+   :address => "mail.ymme.info", :port => "587",
+   :authentication => :plain, :enable_starttls_auto => true,
+   :user_name => "fiksu@ymme.info", :password => "AG234RWe#qwER32fsZx"
+  }
 end

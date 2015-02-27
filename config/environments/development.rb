@@ -29,4 +29,11 @@ Entertainment::Application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # SMTP settings
+  config.action_mailer.smtp_settings = {
+   :address => "mail.ymme.info", :port => "587",
+   :authentication => :plain, :enable_starttls_auto => true,
+   :user_name => "fiksu@ymme.info", :password => "AG234RWe#qwER32fsZx"
+  }
 end

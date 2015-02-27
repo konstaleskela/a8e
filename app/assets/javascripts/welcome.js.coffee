@@ -1,3 +1,8 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$ ->
+  $("#contact-form").submit ->
+    form = $(@)
+    contactVal = form.find("input[name='contact']").val().trim()
+    messageVal = form.find("textarea[name='message']").val().trim()
+    if contactVal is "" or messageVal is ""
+      alert "Täytäthän molemmat kentät"
+      return false

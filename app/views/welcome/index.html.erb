@@ -1,37 +1,58 @@
+<% if params[:sent] %>
+  <div id="message-sent" class="reveal-modal" data-reveal>
+    <h2 style="text-align:center;">Kiitos viestistäsi!</h2>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+  <% content_for :javascripts do %>
+    <script>
+    $(document).on('closed.fndtn.reveal', '[data-reveal]', function () {
+      var modal = $(this);
+      if(modal.attr('id') == 'message-sent') window.location = "/proto"
+    });
+    $('#message-sent').foundation('reveal', 'open');
+    </script>
+  <% end %>
+<% end %>
+
 <div id="header">
   <div class="row full">
     <div class="columns large-12 no-padding">
       <div id="logo-wrapper">
+        <br class="hidden-for-tiny-only" /><br class="hidden-for-tiny-only" />
         <img id="logo" src="<%= image_url('logo.png'); %>" />
-        <br />
       </div>
     </div>
   </div>
 </div>
+
 <div id="content-top" class="row">
   <div class="row">
     <div class="columns large-6">
       <h1>Me</h1>
-      <p>Me olemme A8 Entertainment Finland, turkulainen, vuonna 2014 perustettu
+      <p>Me olemme <strong class="emphasis">A8 Entertainment Finland</strong>, turkulainen, vuonna 2014 perustettu
       tapahtumasuunnitteluun- ja toteutukseen erikoistunut yritys. Toimintamme tavoitteena on tarjota
-      asiakkaallemme elämyksiä ja pyrkiä tuomaan erityisesti yöelämään uudenlaisia, elämyksellisiä
-      ratkaisuja. </p>
-      <p><strong class="emphasis">Tarjoamme asiakkaillemme</strong>
-      tuoretta ja uudenlaista näkemystä toimialallamme.
+      asiakkaillemme elämyksiä ja pyrkiä tuomaan erityisesti yöelämään uudenlaisia, elämyksellisiä
+      ratkaisuja.</p>
     </div>
-  </div>
-  <div class="row">
     <div class="columns large-6 right">
-      <h1>Palvelumme</h1>
+      <h1>Tarjoamme</h1>
+      <p><strong class="emphasis">Tarjoamme asiakkaillemme</strong>
+      tuoretta ja uudenlaista näkemystä toimialallamme. Palveluihimme kuuluu esimerkiksi:
       <ul id="services-list">
-        <li>Kokonaisvaltainen audiovisuaalinen ja tekninen toteutus.</li>
-        <li>Mainos- ja promootioratkaisut.</li>
-        <li>Tehokkaasti organisoitu tapahtumanjärjestys.</li>
+        <li>Kokonaisvaltaista audiovisuaalista ja teknistä toteutusta.</li>
+        <li>Mainos- ja promootioratkaisuja.</li>
+        <li>Tehokkaasti organisoitua tapahtumanjärjestystä.</li>
       </ul>
-      <a style="font-size:13px;" href="#">lisätietoa palveluistamme</a>
+      <br />
+      <a style="float:right;font-size:13px;" href="#" data-reveal-id="service-details">lisätietoa palveluistamme</a>
       </p>
     </div>
   </div>
+</div>
+
+<div id="service-details" class="reveal-modal" data-reveal>
+  <p>Lorem Ipsum</p>
+  <a class="close-reveal-modal">&#215;</a>
 </div>
 
 <div id="spacer">
@@ -41,38 +62,64 @@
 
 <div id="content-bottom" class="row">
   <div class="row">
-    <div class="columns large-6 small-7">
+    <div class="columns large-3 small-2 hidden-for-tiny-only">&nbsp;</div>
+    <div class="columns large-6 small-8">
       <h1>Yhteystiedot</h1>
       <table id="contact-info">
         <tr>
-          <td class="img"><img src="http://bvs.ch/images/placeholder.jpg" /></td>
+          <td class="img"><img src="<%= image_url('img-placeholder.jpg'); %>" /></td>
           <td class="info">
             <strong>Konsta Leskelä</strong><br />
-            +358400736007
-            etunimi.sukunimi@a8e.fi
+            +358400736007<br />
+            etunimi@a8e.fi<br />
             Perustajajäsen
           </td>
         </tr>
-        <tr><td class="img"><img src="http://bvs.ch/images/placeholder.jpg" /></td><td>Nimi yms</td></tr>
-        <tr><td class="img"><img src="http://bvs.ch/images/placeholder.jpg" /></td><td>Nimi yms</td></tr>
+        <tr>
+          <td class="info">
+            <strong>Tommi Pura</strong><br />
+            +358451316881<br />
+            etunimi@a8e.fi<br />
+            Perustajajäsen
+          </td>
+          <td class="img">
+            <img style="float:right" src="<%= image_url('img-placeholder.jpg'); %>" />
+          </td>
+        </tr>
+        <tr>
+          <td class="img">
+            <img src="<%= image_url('img-placeholder.jpg'); %>" />
+          </td>
+          <td class="info">
+            <strong>Miska Sulander</strong><br />
+            +358449794179<br />
+            etunimi@a8e.fi<br />
+            Perustajajäsen
+          </td>
+        </tr>
       </table>
     </div>
+    <div class="columns large-3 small-2 hidden-for-tiny-only">&nbsp;</div>
   </div>
-  <div class="row">
-    <div class="columns large-6 right">
+</div>
+
+<div class="row" id="content-below-bottom">
+  <hr id="pappa-sep" />
+  <div class="columns large-6 right">
+    <div id="contact-form-wrapper">
       <h1>Ota yhteyttä</h1>
       <p>
       Kaipaatko jotain uutta Turun yöelämään. Ehdota, me toteutamme!
       Tarvitsetko apuamme tapahtuman järjestämisessä? Säästä aikaa ja samalla rahaa ulkoistamalla
       meille yksityisen, tai yrityksesi tapahtuman järjestys!
       </p>
-      <form>
-        <input type="text" placeholder="Sähköposti tai puhelinnumero" />
-        <textarea style="height:100px;" placeholder="Tapahtuman tyyppi, koko, ajankohta yms."></textarea>
+      <%= form_tag '/send-message', :method => 'post', :id => 'contact-form' do %><%#<form id="contact-form">%>
+        <input name="contact" type="text" placeholder="Sähköposti tai puhelinnumero" />
+        <textarea name="message" style="height:60px;" placeholder="Tapahtuman tyyppi, koko, ajankohta yms."></textarea>
         <input class="button" type="submit" value="Ota yhteyttä!" />
-      </form>
+      <% end %>
     </div>
   </div>
+  <%# absolutely positioned %>
+  <div id="pappa"></div>
 </div>
-
-<div id="granpa"></div>
