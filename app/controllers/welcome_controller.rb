@@ -6,4 +6,7 @@ class WelcomeController < ApplicationController
   def lay2
   end
 
+  def under_construction
+  end
+
 end
