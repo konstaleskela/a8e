@@ -6,13 +6,12 @@
   background-color: #999;
   height: 650px;
   text-align: center;
-  background-image: url('http://i.istockimg.com/file_thumbview_approve/44728284/2/stock-photo-44728284-blured-lighhts-from-peak-victoria-hong-kong.jpg');
+  background-image: image-url('hongkong.jpg');
   background-size: cover;
   background-position: 50%;
   position: relative;
 }
 #logo {
-  width: 300px;
 }
 #crowd {
   position: absolute;
@@ -36,7 +35,7 @@
   background-color: #999;
   height: 600px;
   text-align: center;
-  background-image: url('http://i.istockimg.com/file_thumbview_approve/36680666/2/stock-photo-36680666-people-on-music-concert-disco-party-vintage.jpg');
+  background-image: image-url('partyhands.jpg');
   background-size: cover;
   position: relative;
   background-position: 50% 70%;
@@ -55,7 +54,7 @@
 }
 
 #granpa {
-  background-image: url('http://i.istockimg.com/file_thumbview_approve/23863117/2/stock-photo-23863117-grandpa-dj.jpg');
+  background-image: image-url('pappa.jpg');
   position: absolute;
   width: 45%;
   left: 0px;

@@ -2,8 +2,8 @@
   <div class="row full">
     <div class="columns large-12 no-padding">
       <div id="logo-wrapper">
-        <img id="logo" src="https://lh3.googleusercontent.com/-bUQlYkj29iQ/AAAAAAAAAAI/AAAAAAAAAD0/uwKk4cIFgBI/photo.jpg" />
-        <br />
+        <br /><br />
+        <img id="logo" src="<%= image_url('logo.png'); %>" />
       </div>
     </div>
   </div>
@@ -45,25 +45,35 @@
       <h1>Yhteystiedot</h1>
       <table id="contact-info">
         <tr>
-          <td class="img"><img src="http://bvs.ch/images/placeholder.jpg" /></td>
+          <td class="img"><img src="<%= image_url('img-placeholder.jpg'); %>" /></td>
           <td class="info">
             <strong>Konsta Leskelä</strong><br />
-            +358400736007
-            etunimi.sukunimi@a8e.fi
+            +358400736007<br />
+            etunimi.sukunimi@a8e.fi<br />
             Perustajajäsen
           </td>
         </tr>
         <tr>
-          <td class="info">Nimi yms</td>
+          <td class="info">
+            <strong>Tommi Pura</strong><br />
+            +358451316881<br />
+            etunimi.sukunimi@a8e.fi<br />
+            Perustajajäsen
+          </td>
           <td class="img">
-            <img style="float:right" src="http://bvs.ch/images/placeholder.jpg" />
+            <img style="float:right" src="<%= image_url('img-placeholder.jpg'); %>" />
           </td>
         </tr>
         <tr>
           <td class="img">
-            <img src="http://bvs.ch/images/placeholder.jpg" />
+            <img src="<%= image_url('img-placeholder.jpg'); %>" />
           </td>
-          <td class="info">Nimi yms</td>
+          <td class="info">
+            <strong>Miska Sulander</strong><br />
+            +358449794179<br />
+            etunimi.sukunimi@a8e.fi<br />
+            Perustajajäsen
+          </td>
         </tr>
       </table>
     </div>
