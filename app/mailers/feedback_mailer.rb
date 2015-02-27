@@ -4,6 +4,6 @@ class FeedbackMailer < ActionMailer::Base
   def simple(contact, message)
     @contact = contact
     @message = message
-    mail(to: 'nileskel@gmail.com', subject: 'Yhteydenotto nettisivulta')
+    mail(to: 'konsta.leskela@gmail.com', subject: 'Yhteydenotto nettisivulta')
   end
 end
