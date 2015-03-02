@@ -6,7 +6,7 @@ class FeedbackController < ApplicationController
     if !contact.blank? && !message.blank?
       FeedbackMailer.simple(contact, message).deliver
     end
-    redirect_to '/proto?sent=true'
+    redirect_to '/?sent=true'
   end
 
 end

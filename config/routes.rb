@@ -3,8 +3,7 @@ Entertainment::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#under_construction'
-  get 'proto' => 'welcome#proto'
+  root 'welcome#index'
   post 'send-message' => 'feedback#send_message'
 
   # Example of regular route:
