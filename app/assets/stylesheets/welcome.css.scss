@@ -49,9 +49,11 @@
   & { margin-left: 20px; }
   li { margin-bottom: 20px; }
 }
-#service-details {
-  margin-left: -25%;
-  width: 50%;
+@media (min-width: 628px) {
+  #service-details {
+    margin-left: -25%;
+    width: 50%;
+  }
 }
 
 #contact-info {
