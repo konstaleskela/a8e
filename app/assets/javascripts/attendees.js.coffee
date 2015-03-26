@@ -38,13 +38,10 @@ $ ->
       scrollTop: modal.offset().top - 100
     , 500
 
-  $(document).on "closed.fndtn.reveal", "[data-reveal]", ->
-    modal = $(@)
-    if modal.attr("id") is "abit-goes-to-tallinn-modal"
-      formWrapper.show()
-      thanksWrapper.hide()
-      resetForm()
-    return
+  modal.on "closed.fndtn.reveal", ->
+    formWrapper.show()
+    thanksWrapper.hide()
+    resetForm()
 
   resetForm = ->
     errorAlert1.hide()
