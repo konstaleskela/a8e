@@ -1,0 +1,110 @@
+#tallinn-link-wrapper { width: 454px; margin: 0 auto; }
+a#tallinn-link { display: block; width: 454px; height: 105px; }
+a#tallinn-link:hover { background-color: transparent; }
+a#tallinn-link img { width: 98%; height: 98%; }
+a#tallinn-link:hover img { width: 100%; height: 100%; }
+@media (max-width: 528px) {
+  #tallinn-link-wrapper { width: 80%; }
+  a#tallinn-link { width: 100%; height: auto; }
+}
+
+.row .columns {
+  padding-left: 2em;
+  padding-right: 2em;
+}
+#message-sent {
+  margin-left: -20%;
+  width: 40%;
+}
+
+#logo-wrapper {
+  background-color: #999;
+  height: 650px;
+  text-align: center;
+  background-image: image-url('hongkong.jpg');
+  background-size: cover;
+  background-position: 50%;
+  position: relative;
+}
+
+@media (max-width: 478px) {
+  #logo-wrapper {
+    height: 450px;
+  }
+}
+
+#logo { }
+
+#content-top, #content-bottom {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+#spacer {
+  width: 100%;
+}
+
+#party-hands {
+  background-color: #999;
+  height: 600px;
+  text-align: center;
+  background-image: image-url('partyhands.jpg');
+  background-size: cover;
+  position: relative;
+  background-position: 50% 70%;
+}
+
+#services-list {
+  & { margin-left: 20px; }
+  li { margin-bottom: 20px; }
+}
+
+#contact-info {
+  & { border: none; width: 100%; }
+  tr { background-color: transparent; }
+  td.img { min-width: 130px; width: 180px; }
+  td.info { line-height: 20px; }
+}
+
+#content-below-bottom {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+#contact-form-wrapper {
+  max-width: 400px;
+}
+
+#pappa {
+  background-image: image-url('pappa.jpg');
+  position: absolute;
+  width: 45%;
+  left: 0px;
+  height: 489px;
+  top: 0;
+  z-index: -999;
+  background-position: 49% 88%;
+  background-size: cover;
+}
+#pappa-sep {
+  margin-top: 0;
+}
+@media (max-width: 768px) {
+  #pappa { display: none; }
+}
+@media (max-width: 528px) {
+  .hidden-for-tiny-only { display: none; }
+}
+
+/* compact modals for huge screens */
+@media (min-width: 1200px) {
+  .reveal-modal {
+    width: 50% !important;
+  }
+}
+@media (min-width: 1700px) {
+  .reveal-modal {
+    width: 35% !important;
+  }
+}

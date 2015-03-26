@@ -1,0 +1,192 @@
+<% if params[:sent] %>
+  <div id="message-sent" class="reveal-modal" data-reveal>
+    <h2 style="text-align:center;">Kiitos viestistäsi!</h2>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+  <% content_for :javascripts do %>
+    <script>
+    $(document).on('closed.fndtn.reveal', '[data-reveal]', function () {
+      var modal = $(this);
+      if(modal.attr('id') == 'message-sent') window.location = "/"
+    });
+    $('#message-sent').foundation('reveal', 'open');
+    </script>
+  <% end %>
+<% end %>
+
+<div id="header">
+  <div class="row full">
+    <div class="columns large-12 no-padding">
+      <div id="logo-wrapper">
+        <br class="hidden-for-tiny-only" /><br class="hidden-for-tiny-only" />
+        <img id="logo" src="<%= image_url('logo.png'); %>" />
+        <br /><br />
+        <% if params.has_key?('agt') %>
+        <div id="tallinn-link-wrapper">
+          <a id="tallinn-link" href="#" data-reveal-id="abit-goes-to-tallinn-modal">
+            <img src="<%= image_url('tallinn-badge.png'); %>" />
+          </a>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="content-top" class="row">
+  <div class="row">
+    <div class="columns large-6">
+      <h1>Me</h1>
+      <p>Me olemme <strong class="emphasis">A8 Entertainment Finland</strong>, turkulainen, vuonna 2014 perustettu
+      tapahtumasuunnitteluun- ja toteutukseen erikoistunut yritys. Toimintamme tavoitteena on tarjota
+      asiakkaillemme elämyksiä ja pyrkiä tuomaan erityisesti yöelämään uudenlaisia, elämyksellisiä
+      ratkaisuja.</p>
+    </div>
+    <div class="columns large-6 right">
+      <h1>Tarjoamme</h1>
+      <p><strong class="emphasis">Tarjoamme asiakkaillemme</strong>
+      tuoretta ja uudenlaista näkemystä toimialallamme. Palveluihimme kuuluu esimerkiksi:
+      <ul id="services-list">
+        <li>Kokonaisvaltaista audiovisuaalista ja teknistä toteutusta.</li>
+        <li>Mainos- ja promootioratkaisuja.</li>
+        <li>Tehokkaasti organisoitua tapahtumanjärjestystä.</li>
+      </ul>
+      <br />
+      <a style="float:right;font-size:13px;" href="#" data-reveal-id="service-details">lisätietoa palveluistamme</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="service-details" class="reveal-modal" data-reveal>
+  <h3>Audiovisuaalinen ja tekninen toteutus</h3>
+  <p>Yhteistyökumppaneinamme toimii merkittäviä audiovisuaalisuutta ja tekniikkaa toteuttavia yrityksiä. Tämä yhdistettynä laajaan tietotaitoomme ja luovaan näkemyksemme takaa että toteutuksemme ovat toimivia ja eksklusiivisia.</p>
+  <h3>Mainos- ja promootioratkaisut</h3>
+  <p>Käytämme kokemuksen myötä toimiviksi havaittuja mainos-, ja promootiokanavia. Pystymme saavuttamaan suuren määrän ihmisiä sosiaalisessa mediassa.</p>
+  <h3>Tapahtumanjärjestys</h3>
+  <p>Meillä on kokemusta erilaisten tapahtumien organisoinnista ja tuomme uudenlaista näkemystä asioiden toteuttamiseen.</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="spacer">
+  <div id="party-hands">
+  </div>
+</div>
+
+<div id="content-bottom" class="row">
+  <div class="row">
+    <div class="columns large-3 small-2 hidden-for-tiny-only">&nbsp;</div>
+    <div class="columns large-6 small-8">
+      <h1>Yhteystiedot</h1>
+      <table id="contact-info">
+        <tr>
+          <td class="img"><img src="<%= image_url('img-placeholder.jpg'); %>" /></td>
+          <td class="info">
+            <strong>Konsta Leskelä</strong><br />
+            +358400736007<br />
+            etunimi@a8e.fi<br />
+            Perustajajäsen
+          </td>
+        </tr>
+        <tr>
+          <td class="info">
+            <strong>Tommi Pura</strong><br />
+            +358451316881<br />
+            etunimi@a8e.fi<br />
+            Perustajajäsen
+          </td>
+          <td class="img">
+            <img style="float:right" src="<%= image_url('img-placeholder.jpg'); %>" />
+          </td>
+        </tr>
+        <tr>
+          <td class="img">
+            <img src="<%= image_url('img-placeholder.jpg'); %>" />
+          </td>
+          <td class="info">
+            <strong>Miska Sulander</strong><br />
+            +358449794179<br />
+            etunimi@a8e.fi<br />
+            Perustajajäsen
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="columns large-3 small-2 hidden-for-tiny-only">&nbsp;</div>
+  </div>
+</div>
+
+<div class="row" id="content-below-bottom">
+  <hr id="pappa-sep" />
+  <div class="columns large-6 right">
+    <div id="contact-form-wrapper">
+      <h1>Ota yhteyttä</h1>
+      <p>
+      Kaipaatko jotain uutta Turun yöelämään. Ehdota, me toteutamme!
+      Tarvitsetko apuamme tapahtuman järjestämisessä? Säästä aikaa ja samalla rahaa ulkoistamalla
+      meille yksityisen, tai yrityksesi tapahtuman järjestys!
+      </p>
+      <%= form_tag '/send-message', :method => 'post', :id => 'contact-form' do %><%#<form id="contact-form">%>
+        <input name="contact" type="text" placeholder="Sähköposti tai puhelinnumero" />
+        <textarea name="message" style="height:60px;" placeholder="Tapahtuman tyyppi, koko, ajankohta yms."></textarea>
+        <input class="button radius" type="submit" value="Ota yhteyttä!" />
+      <% end %>
+    </div>
+  </div>
+  <%# absolutely positioned %>
+  <div id="pappa"></div>
+</div>
+
+<div id="abit-goes-to-tallinn-modal" class="reveal-modal medium" data-reveal data-options="close_on_background_click:false;">
+  <div class="row">
+    <div class="large-12 large-centered columns">
+      <div id="form-wrapper">
+        <h4>Ilmoittaudu mukaan!</h4>
+        <p style="line-height:1.8em">
+        Yleistä lipsumia tapahtumaan liittyen. Täytä allaoleva lomake ilmoittautuaksesi mukaan aliquam diam sit amet nunc pharetra, a facilisis justo tincidunt.</p>
+        <%= simple_form_for(@attendee, remote: true, html: { data: { type: :json } }) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="form-inputs">
+            <%= f.input :name, :label => 'Nimi (etunimi sukunimi)' %>
+            <%= f.input :phone, :label => 'Puhelinnumero' %>
+            <%= f.input :email, :label => 'Sähköpostiosoite' %>
+            <%= f.association :school, :label => 'Koulu' %>
+            <p style="margin-top:20px;">
+              <a href="/agt2016-matkaehdot" target="_blank">Näytä matkaehdot</a><br />
+              Hyväksymällä ehdot sitoudut allekirjoittamaan lähdön yhteydessä
+              vastuuvapautuslomakkeen ja maksamaan varausmaksun 7 vuorokauden
+              kuluessa ilmoittautumisesta. Sitoutumismaksun lähetetään antamaasi
+              sähköpostiosoitteeseen.
+            </p>
+            <label><input id="conditions-approved" type="checkbox" /> Hyväksyn ehdot</label>
+          </div>
+
+          <div data-alert class="alert-box secondary radius" id="check-data-error-alert" style="display:none;">
+            <strong>Virhe:</strong> Tarkista että olet täyttänyt kaikki kentät ja hyväksynyt ehdot.
+          </div>
+
+          <div data-alert class="alert-box secondary radius" id="general-error-alert" style="display:none;">
+            <strong>Virhe:</strong> Jos lähetit juuri toisen ilmoittautumisen, yritä hetken kuluttua uudelleen.
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, :value => "Lähetä ilmoittautuminen", :class => "submit-button radius", :'data-disabled-text' => "Lähetetään ilmoittautumista" %>
+          </div>
+        </div>
+
+        <div id="thanks-wrapper" style="display:none;">
+          <p><strong>Kiitos ilmoittautumisestasi!</strong> Antamaasi sähköpostiosoitteeseen
+          lähetetään tarkemmat ohjeet varausmaksun maksamiseen. Muista tarkistaa
+          roskapostilaatikko jos viestiä ei kuulu. Ota sähköpostitse yhteyttä
+          osoitteeseen <a href="mailto:agt2016@a8e.fi">agt2016@a8e.fi</a> jos
+          sinulla on kysyttävää.</p>
+          <button class="close-reveal-modal">Sulje ikkuna</button>
+        </div>
+
+
+      <% end %>
+    </div>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

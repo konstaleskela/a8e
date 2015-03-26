@@ -1,0 +1,13 @@
+.form-inputs { margin-bottom: 20px; }
+.input { margin-bottom: 10px; }
+.input select, .input input { margin-bottom: 0; }
+
+/* reset close reveal style for buttons */
+.reveal-modal button.close-reveal-modal {
+  font-size: 1em;
+  line-height: 1;
+  position: static;
+  top: auto;
+  right: auto;
+  color: #fff;
+}
