@@ -3,9 +3,9 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 require 'yaml'
-credentials_file = '../credentials.yml'
+credentials_file = File.expand_path('../credentials.yml', __FILE__)
 if File.exists? credentials_file
-  CREDENTIALS = YAML.load(File.read(File.expand_path(credentials_file, __FILE__)))
+  CREDENTIALS = YAML.load(File.read(credentials_file))
 else
   CREDENTIALS = {"username" => "EMPTY", "password" => "EMPTY" }
   puts "config/credentials.yml does not exists. You should create it."
