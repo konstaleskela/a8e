@@ -33,6 +33,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'simple_form'
+gem 'reference_number'
 
 group :development do
   gem 'capistrano-rails'

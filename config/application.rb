@@ -2,6 +2,10 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+require 'yaml'
+CREDENTIALS = YAML.load(File.read(File.expand_path('../credentials.yml', __FILE__)))
+CREDENTIALS = {"username" => "test", "password" => "test" } if CREDENTIALS.nil?
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

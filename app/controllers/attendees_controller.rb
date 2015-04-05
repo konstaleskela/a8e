@@ -1,4 +1,15 @@
 class AttendeesController < ApplicationController
+  before_filter :authenticate, :except => [:create]
+
+  def index
+    @list_confirmed = params.has_key?("confirmed")
+
+    if @list_confirmed
+      @attendees = Attendee.where(:confirmed => true)
+    else
+      @attendees = Attendee.where(:confirmed => false)
+    end
+  end
 
   # POST /attendees
   # POST /attendees.json
@@ -15,7 +26,8 @@ class AttendeesController < ApplicationController
         @attendee = Attendee.new(attendee_params)
         if @attendee.save
           FormSenderCache.create({:address => request.remote_ip, :expires => 1.minute.from_now})
-          EventMailer.agt2016(@attendee.name, @attendee.email, @attendee.school).deliver
+          email = EventMailer.agt2016_attendance_created(@attendee)
+          email.deliver
           format.html { redirect_to @attendee, notice: 'Attendee was successfully created.' }
           format.json { render action: 'show', status: :created, location: @attendee }
         else
@@ -24,6 +36,14 @@ class AttendeesController < ApplicationController
         end
       end
     end
+  end
+
+  def confirm
+    attendee = Attendee.find(params[:id])
+    attendee.update_column(:confirmed, true)
+    email = EventMailer.agt2016_attendance_confirmed(attendee)
+    email.deliver
+    redirect_to attendees_path
   end
 
   private

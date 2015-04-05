@@ -1,0 +1,39 @@
+<div class="row">
+<div class="columns">
+<br />
+<div id="listmenu">
+  <a class="<%= @list_confirmed ? "" : "active" %>" href="/attendees">Vahvistamattomat</a> |
+  <a class="<%= @list_confirmed ? "active" : "" %>" href="/attendees?confirmed">Vahvistetut</a>
+  <p>Kirjaudu ulos sulkemalla selain (kokonaan).</p>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th width="200">Nimi</th>
+      <th>Koulu</th>
+      <th width="200">Sähköposti</th>
+      <th width="150">Puhelinnumero</th>
+      <th width="100">Viitenumero</th>
+      <% unless @list_confirmed %><th></th><% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @attendees.each do |attendee| %>
+      <tr>
+        <td><%= attendee.name %></td>
+        <td><%= attendee.school.name if attendee.school %></td>
+        <td><%= attendee.email %></td>
+        <td><%= attendee.phone %></td>
+        <td><%= attendee.reference_number %></td>
+        <% unless @list_confirmed %>
+          <td>
+            <%#<a class="button radius tiny" href="">Vahvista</a>%>
+            <%= button_to "Vahvista", confirm_attendee_path(attendee) %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
