@@ -5,3 +5,5 @@ set :repo_url, 'https://github.com/konstaleskela/a8e.git'
 ask :branch, 'master'
 set :runner, 'deploy'
 set :app_server, :puma
+
+set :linked_files, %w{config/credentials.yml}
