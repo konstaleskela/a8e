@@ -3,8 +3,13 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 require 'yaml'
-CREDENTIALS = YAML.load(File.read(File.expand_path('../credentials.yml', __FILE__)))
-CREDENTIALS = {"username" => "test", "password" => "test" } if CREDENTIALS.nil?
+credentials_file = '../credentials.yml'
+if File.exists? credentials_file
+  CREDENTIALS = YAML.load(File.read(File.expand_path(credentials_file, __FILE__)))
+else
+  CREDENTIALS = {"username" => "EMPTY", "password" => "EMPTY" }
+  puts "config/credentials.yml does not exists. You should create it."
+end
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
