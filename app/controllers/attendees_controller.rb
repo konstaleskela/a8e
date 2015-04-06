@@ -23,7 +23,16 @@ class AttendeesController < ApplicationController
         format.html { render text: 'Virhe' }
         format.json { render json: {:error => 1}, status: :unprocessable_entity  }
       else
-        @attendee = Attendee.new(attendee_params)
+        valid_params = attendee_params
+        # try to create a new school record (or invalidate id 9999 and use nil instead)
+        if valid_params[:school_id] == "9999"
+          valid_params[:school_id] = nil
+          if params[:other_school] && !params[:other_school].blank?
+            new_school = School.find_or_create_by(:name => params[:other_school])
+            valid_params[:school_id] = new_school.id
+          end
+        end
+        @attendee = Attendee.new(valid_params)
         if @attendee.save
           FormSenderCache.create({:address => request.remote_ip, :expires => 1.minute.from_now})
           email = EventMailer.agt2016_attendance_created(@attendee)

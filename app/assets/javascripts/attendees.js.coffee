@@ -3,9 +3,14 @@ $ ->
   formWrapper = modal.find("#form-wrapper")
   thanksWrapper = modal.find("#thanks-wrapper")
   form = formWrapper.find("#new_attendee")
+  otherSchool = form.find('.input.other_school')
   submitButton = form.find('.submit-button')
   errorAlert1 = modal.find("#general-error-alert")
   errorAlert2 = modal.find("#check-data-error-alert")
+
+  form.find('#attendee_school_id').on 'change', ->
+    otherSchool.hide()
+    otherSchool.show() if $(@).val() is "9999"
 
   $("#new_attendee").on 'ajax:before', ->
     toggleButton(submitButton, false)
@@ -18,6 +23,7 @@ $ ->
     checkData = true if form.find("#attendee_school_id").val().trim() is ""
     checkData = true if not form.find("#conditions-approved")[0].checked
     checkData = true if form.find("#conditions-approved").val() is ""
+    checkData = true if otherSchool.find('input').is(':visible') && otherSchool.find('input').val() is ""
     if checkData
       toggleButton(submitButton, true)
       errorAlert1.hide()
@@ -46,6 +52,7 @@ $ ->
   resetForm = ->
     errorAlert1.hide()
     errorAlert2.hide()
+    otherSchool.hide()
     form.find("input.string, select").val('')
     form.find("input[type='checkbox']").prop('checked',false)
 

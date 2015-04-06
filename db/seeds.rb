@@ -8,7 +8,7 @@ schools = [
   'Turun Lyseon lukio',
 ]
 schools.each do |name|
-  School.create(name: name)
+  School.create(name: name, public: true)
 end
 
 Event.create({

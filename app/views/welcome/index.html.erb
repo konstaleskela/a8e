@@ -144,7 +144,14 @@
         <h4>Ilmoittaudu mukaan!</h4>
         <p style="line-height:1.8em">
         <strong>Abimatka Tallinnaan 19.-20.2.2016:</strong>
-        Matkan kokonaishinta on alk. 85€/osallistuja ja hintaan sisältyvät bussikuljetukset Turusta Helsinkiin ja Helsingistä Turkuun, laivamatkat Tallinnaan ja takaisin Eckerö Linen m/s Finlandialla sekä hotelliyön aamiaisineen. Matkalle osallistuminen edellyttää varausmaksun maksamista (35€) ilmoittautumisen yhteydessä. Loput matkan hinnasta maksetaan myöhemmin ilmoitettavana ajankohtana  loppuvuodesta 2015.</p>
+        Matkan kokonaishinta on alk. 85€/osallistuja. Hintaan sisältyy
+        bussikuljetukset Turusta Helsinkiin ja Helsingistä Turkuun, laivamatkat
+        Tallinnaan ja takaisin Eckerö Linen m/s Finlandialla sekä hotelliyön
+        aamiaisineen. Loput matkan hinnasta maksetaan myöhemmin ilmoitettavana
+        ajankohtana loppuvuodesta 2015. Täytä tietosi alla olevaan lomakkeeseen
+        ilmoittautuaksesi mukaan matkalle. Huomaa, että matkalle osallistuminen
+        edellyttää varausmaksun maksamista (35€) ilmoittautumisen
+        yhteydessä.</p>
         <%= simple_form_for(@attendee, remote: true, html: { data: { type: :json } }) do |f| %>
           <%= f.error_notification %>
 
@@ -152,12 +159,17 @@
             <%= f.input :name, :label => 'Nimi (etunimi sukunimi)' %>
             <%= f.input :phone, :label => 'Puhelinnumero' %>
             <%= f.input :email, :label => 'Sähköpostiosoite' %>
-            <%= f.association :school, :label => 'Koulu' %>
+            <% school_collection = School.where(:public => true).to_a << School.new(:id => 9999, :name => 'Muu koulu') %>
+            <%= f.association :school, collection: school_collection, :label => 'Koulu', :prompt => '-- valitse --' %>
+            <div class="input text optional other_school" style="display:none;">
+              <label class="text optional" for="other_school">Muu, mikä</label>
+              <input class="string text optional" id="other_school" name="other_school" type="text">
+            </div>
             <p style="margin-top:20px;">
               <a href="/agt2016-matkaehdot" target="_blank">Näytä matkaehdot</a><br />
               Hyväksymällä ehdot sitoudut allekirjoittamaan lähdön yhteydessä
               vastuuvapautuslomakkeen ja maksamaan varausmaksun 7 vuorokauden
-              kuluessa ilmoittautumisesta. Sitoutumismaksun lähetetään antamaasi
+              kuluessa ilmoittautumisesta. Varausmaksun maksuohjeet lähetetään antamaasi
               sähköpostiosoitteeseen.
             </p>
             <label><input id="conditions-approved" type="checkbox" /> Hyväksyn ehdot</label>
@@ -183,7 +195,7 @@
           roskapostilaatikko jos viestiä ei kuulu. Ota sähköpostitse yhteyttä
           osoitteeseen <a href="mailto:info@a8e.fi">info@a8e.fi</a> jos
           sinulla on kysyttävää.</p>
-          <button class="close-reveal-modal">Sulje ikkuna</button>
+          <button class="close-reveal-modal radius">Sulje ikkuna</button>
         </div>
 
       <% end %>

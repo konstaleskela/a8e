@@ -3,6 +3,7 @@ class EventMailer < ActionMailer::Base
 
   def agt2016_attendance_created(attendee)
     @name = attendee.name
+    @school = attendee.school
     @recipient = attendee.email
     @reference_number = attendee.reference_number
     mail(to: @recipient, subject: 'Abi Goes Tallinn varausmaksu')
