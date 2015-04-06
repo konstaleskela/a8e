@@ -73,6 +73,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
+    pg (0.18.1)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -145,6 +146,7 @@ DEPENDENCIES
   foundation-rails (~> 5.4.0)
   jbuilder (~> 1.2)
   jquery-rails
+  pg
   pry-nav
   rails (= 4.0.12)
   reference_number
