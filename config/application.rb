@@ -7,8 +7,12 @@ credentials_file = File.expand_path('../credentials.yml', __FILE__)
 if File.exists? credentials_file
   CREDENTIALS = YAML.load(File.read(credentials_file))
 else
-  CREDENTIALS = {"username" => "EMPTY", "password" => "EMPTY" }
-  puts "config/credentials.yml does not exists. You should create it."
+  CREDENTIALS = {
+    "database" => {"password" => "" },
+    "basic_auth" => {"username" => "", "password" => "" }
+  }
+  File.open(credentials_file, 'w') {|f| f.write CREDENTIALS.to_yaml }
+  puts "config/credentials.yml did not exists. I created it for you."
 end
 
 # Require the gems listed in Gemfile, including any gems

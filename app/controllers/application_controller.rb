@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
 
   private
   def authenticate
+    return true if Rails.env == "development"
     login = authenticate_or_request_with_http_basic do |username, password|
       username == CREDENTIALS['basic_auth']['username'] && Digest::SHA1.hexdigest(password) == CREDENTIALS['basic_auth']['password']
     end

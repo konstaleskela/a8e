@@ -9,6 +9,7 @@
 <table>
   <thead>
     <tr>
+      <th width="150">Vastaanotettu</th>
       <th width="200">Nimi</th>
       <th>Koulu</th>
       <th width="200">Sähköposti</th>
@@ -20,6 +21,7 @@
   <tbody>
     <% @attendees.each do |attendee| %>
       <tr>
+        <td><%= attendee.created_at.strftime("%F %T") %></td>
         <td><%= attendee.name %></td>
         <td><%= attendee.school.name if attendee.school %></td>
         <td><%= attendee.email %></td>

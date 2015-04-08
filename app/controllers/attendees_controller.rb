@@ -9,6 +9,8 @@ class AttendeesController < ApplicationController
     else
       @attendees = Attendee.where(:confirmed => false)
     end
+
+    @attendees = @attendees.order('created_at DESC')
   end
 
   # POST /attendees
