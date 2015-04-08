@@ -6,22 +6,22 @@
   <a class="<%= @list_confirmed ? "active" : "" %>" href="/attendees?confirmed">Vahvistetut</a>
   <p>Kirjaudu ulos sulkemalla selain (kokonaan).</p>
 </div>
-<table>
+<table id="attendee-list">
   <thead>
     <tr>
       <th width="150">Vastaanotettu</th>
       <th width="200">Nimi</th>
-      <th>Koulu</th>
-      <th width="200">Sähköposti</th>
-      <th width="150">Puhelinnumero</th>
-      <th width="100">Viitenumero</th>
+      <th width="100">Koulu</th>
+      <th>Sähköposti</th>
+      <th>Puhelinnumero</th>
+      <th width="50">Viite</th>
       <% unless @list_confirmed %><th></th><% end %>
     </tr>
   </thead>
   <tbody>
     <% @attendees.each do |attendee| %>
       <tr>
-        <td><%= attendee.created_at.strftime("%F %T") %></td>
+        <td class="date"><%= attendee.created_at.strftime("%F %T") %></td>
         <td><%= attendee.name %></td>
         <td><%= attendee.school.name if attendee.school %></td>
         <td><%= attendee.email %></td>
@@ -29,7 +29,6 @@
         <td><%= attendee.reference_number %></td>
         <% unless @list_confirmed %>
           <td>
-            <%#<a class="button radius tiny" href="">Vahvista</a>%>
             <%= button_to "Vahvista", confirm_attendee_path(attendee) %>
           </td>
         <% end %>
