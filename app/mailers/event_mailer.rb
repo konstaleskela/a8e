@@ -13,4 +13,10 @@ class EventMailer < ActionMailer::Base
     @recipient = attendee.email
     mail(to: @recipient, subject: 'Abi Goes Tallinn maksuvahvistus')
   end
+
+  def agt2016_attendance_payment_late(attendee)
+    @recipient = attendee.email
+    @reference_number = attendee.reference_number
+    mail(to: @recipient, subject: 'Abi Goes Tallinn varausmaksu myöhässä')
+  end
 end

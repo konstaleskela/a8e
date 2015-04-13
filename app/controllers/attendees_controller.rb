@@ -57,6 +57,14 @@ class AttendeesController < ApplicationController
     redirect_to attendees_path
   end
 
+  def latemail
+    attendee = Attendee.find(params[:id])
+    attendee.update_column(:late_mails_sent, 1)
+    email = EventMailer.agt2016_attendance_payment_late(attendee)
+    email.deliver
+    redirect_to attendees_path
+  end
+
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.

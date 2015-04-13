@@ -29,7 +29,10 @@
         <td><%= attendee.reference_number %></td>
         <% unless @list_confirmed %>
           <td>
-            <%= button_to "Vahvista", confirm_attendee_path(attendee) %>
+            <%= button_to "Vahvista", confirm_attendee_path(attendee), :confirm => "Haluatko varmasti VAHVISTAA OSALLISTUMISEN", :class => "button tiny", :style => "margin-bottom:5px;" %>
+            <% if attendee.late_mails_sent.nil? %>
+            <%= button_to "Myöhässä", latemail_attendee_path(attendee), :confirm => "Haluatko varmasti LÄHETTÄÄ MAKSU MYÖHÄSSÄ VIESTIN", :class => "button tiny secondary", :style => "margin-bottom:0px;padding:5px 8px;" %>
+            <% end %>
           </td>
         <% end %>
       </tr>
