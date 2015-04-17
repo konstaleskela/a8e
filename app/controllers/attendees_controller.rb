@@ -35,6 +35,7 @@ class AttendeesController < ApplicationController
           end
         end
         @attendee = Attendee.new(valid_params)
+        @attendee.new_price = true
         if @attendee.save
           FormSenderCache.create({:address => request.remote_ip, :expires => 1.minute.from_now})
           email = EventMailer.agt2016_attendance_created(@attendee)
