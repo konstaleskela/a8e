@@ -1,7 +1,7 @@
 Hei <%= @name %>!
 
 Kiitämme ilmoittautumisestanne Abi Goes Tallinn 2016 abimatkalle! Alta löytyvät ilmoittautumismaksun maksutiedot. Maksathan summan (35e) oikealla viitteellä 7 vuorokauden kuluessa ilmoittautumisesta. Kun lasku on maksettu, olet varmistanut paikkasi abimatkalla ja saat maksuvarmennuksen sähköpostiisi muutaman päivän sisällä maksusta. Jos sinulla on vaikeuksia maksun kanssa tai muuta kysyttävää, ota yhteyttä vastaamalla tähän sähköpostiviestiin.
-<% if @school && @school.name == "Kerttulin lukio" %>
+<% if @school && (@school.name == "Kerttulin lukio" || @school.name == "Luostarivuoren lukio") %>
 
 Jos haluat lähteä Tallinnasta aikaisemmalla lähdöllä 20.2.2016 klo 12.00, vastaa tähän sähköpostiosoitteeseen otsikolla "Aikaisempi lähtöaika Tallinnasta" ja kirjoita viestikenttään etu-, ja sukunimesi. Viestiä ei tarvitse lähettää jos lähdet Tallinnasta matkamme normaaliin lähtöaikaan 20.2.2016 klo 18.45.
 <% end %>
