@@ -159,10 +159,10 @@
             <%= f.input :name, :label => 'Nimi (etunimi sukunimi)' %>
             <%= f.input :phone, :label => 'Puhelinnumero' %>
             <%= f.input :email, :label => 'Sähköpostiosoite' %>
-            <% school_collection = School.where(:public => true).to_a << School.new(:id => 9999, :name => 'Muu koulu') %>
-            <%= f.association :school, collection: school_collection, :label => 'Koulu', :prompt => '-- valitse --' %>
+            <% school_collection = School.where(:public => true).to_a << School.new(:id => 9999, :name => 'Muu lukio') %>
+            <%= f.association :school, collection: school_collection, :label => 'Lukio', :prompt => '-- valitse --' %>
             <div class="input text optional other_school" style="display:none;">
-              <label class="text optional" for="other_school">Muu, mikä</label>
+              <label class="text optional" for="other_school">Muu lukio, mikä</label>
               <input class="string text optional" id="other_school" name="other_school" type="text">
             </div>
             <p style="margin-top:20px;">
