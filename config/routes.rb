@@ -4,7 +4,9 @@ Entertainment::Application.routes.draw do
   resources :attendees do
     member do
       post 'confirm'
+      post 'resend_created_mail'
       post 'latemail'
+      post 'latemail2'
     end
   end
 

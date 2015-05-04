@@ -50,6 +50,13 @@ class AttendeesController < ApplicationController
     end
   end
 
+  def resend_created_mail
+    attendee = Attendee.find(params[:id])
+    email = EventMailer.agt2016_attendance_created(attendee)
+    email.deliver
+    redirect_to attendees_path
+  end
+
   def confirm
     attendee = Attendee.find(params[:id])
     attendee.update_column(:confirmed, true)
@@ -62,6 +69,14 @@ class AttendeesController < ApplicationController
     attendee = Attendee.find(params[:id])
     attendee.update_column(:late_mails_sent, 1)
     email = EventMailer.agt2016_attendance_payment_late(attendee)
+    email.deliver
+    redirect_to attendees_path
+  end
+
+  def latemail2
+    attendee = Attendee.find(params[:id])
+    attendee.update_column(:late_mails_sent, 2)
+    email = EventMailer.agt2016_attendance_payment_late2(attendee)
     email.deliver
     redirect_to attendees_path
   end
