@@ -29,6 +29,7 @@
         <td><%= attendee.reference_number %></td>
         <% unless @list_confirmed %>
           <td>
+            <%= button_to "x", attendee, :method => 'delete', :confirm => "Haluatko varmasti POISTAA TIEDOT LOPULLISESTI", :class => "button tiny secondary", :style => "background-color:transparent;color:#660000;float:right;margin:0 0 7px 0;padding:2px 3px;" %>
             <%= button_to "Uusi ilmoviesti", resend_created_mail_attendee_path(attendee), :confirm => "Haluatko varmasti LÄHETTÄÄ UUDEN ILMOVIESTIN", :class => "button tiny secondary", :style => "margin-bottom:5px;padding:5px 8px;" %>
             <%= button_to "Vahvista", confirm_attendee_path(attendee), :confirm => "Haluatko varmasti VAHVISTAA OSALLISTUMISEN", :class => "button tiny", :style => "margin-bottom:5px;" %>
             <% if attendee.late_mails_sent.nil? %>

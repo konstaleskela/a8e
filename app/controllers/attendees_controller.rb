@@ -13,6 +13,11 @@ class AttendeesController < ApplicationController
     @attendees = @attendees.order('created_at DESC')
   end
 
+  def destroy
+    Attendee.find(params[:id]).destroy
+    redirect_to attendees_path
+  end
+
   # POST /attendees
   # POST /attendees.json
   def create
