@@ -140,6 +140,10 @@
 <div id="abit-goes-to-tallinn-modal" class="reveal-modal medium" data-reveal data-options="close_on_background_click:false;">
   <div class="row">
     <div class="large-12 large-centered columns">
+      <% if Attendee.count >= 999 or Time.now > Time.utc(2015, 5, 16, 02, 59) %>
+      <strong>Ilmoittautuminen on päättynyt!</strong>
+      <p>Ilmoitamme mahdollisista peruutuspaikoista <a href="https://www.facebook.com/events/1595108430727680/" target="_blank">Facebook-sivuillamme</a>.</p>
+      <% else %>
       <div id="form-wrapper">
         <h4>Ilmoittaudu mukaan!</h4>
         <p style="line-height:1.8em">
@@ -197,8 +201,8 @@
           sinulla on kysyttävää.</p>
           <button class="close-reveal-modal radius">Sulje ikkuna</button>
         </div>
-
       <% end %>
+    <% end %>
     </div>
   </div>
   <a class="close-reveal-modal">&#215;</a>
