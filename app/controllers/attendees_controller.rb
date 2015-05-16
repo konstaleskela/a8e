@@ -18,6 +18,10 @@ class AttendeesController < ApplicationController
     redirect_to attendees_path
   end
 
+  def new
+    @attendee = Attendee.new
+  end
+
   # POST /attendees
   # POST /attendees.json
   def create
@@ -43,9 +47,12 @@ class AttendeesController < ApplicationController
         @attendee.new_price = true
         if @attendee.save
           FormSenderCache.create({:address => request.remote_ip, :expires => 1.minute.from_now})
-          email = EventMailer.agt2016_attendance_created(@attendee)
-          email.deliver
-          format.html { redirect_to @attendee, notice: 'Attendee was successfully created.' }
+          # added an option to send confirmation (admin only...)
+          if params.has_key?('send_confirmation') && params['send_confirmation'] == "on"
+            email = EventMailer.agt2016_attendance_created(@attendee)
+            email.deliver
+          end
+          format.html { redirect_to attendees_path, notice: 'Attendee was successfully created.' }
           format.json { render action: 'show', status: :created, location: @attendee }
         else
           format.html { render action: 'new' }

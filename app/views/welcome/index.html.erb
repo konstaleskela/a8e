@@ -140,69 +140,12 @@
 <div id="abit-goes-to-tallinn-modal" class="reveal-modal medium" data-reveal data-options="close_on_background_click:false;">
   <div class="row">
     <div class="large-12 large-centered columns">
-      <% if Attendee.count >= 999 or Time.now > Time.utc(2015, 5, 16, 02, 59) %>
+      <% if true %>
       <strong>Ilmoittautuminen on päättynyt!</strong>
       <p>Ilmoitamme mahdollisista peruutuspaikoista <a href="https://www.facebook.com/events/1595108430727680/" target="_blank">Facebook-sivuillamme</a>.</p>
       <% else %>
-      <div id="form-wrapper">
-        <h4>Ilmoittaudu mukaan!</h4>
-        <p style="line-height:1.8em">
-        <strong>Abimatka Tallinnaan 19.-20.2.2016:</strong>
-        Matkan kokonaishinta on 89€/osallistuja. Hintaan sisältyy
-        bussikuljetukset Turusta Helsinkiin ja Helsingistä Turkuun, laivamatkat
-        Tallinnaan ja takaisin Eckerö Linen m/s Finlandialla sekä hotelliyön
-        aamiaisineen. Täytä tietosi alla olevaan lomakkeeseen
-        ilmoittautuaksesi mukaan matkalle. Huomaa, että matkalle osallistuminen
-        edellyttää varausmaksun maksamista (35€) ilmoittautumisen
-        yhteydessä. Loput matkan hinnasta maksetaan myöhemmin ilmoitettavana
-        ajankohtana loppuvuodesta 2015.</p>
-        <%= simple_form_for(@attendee, remote: true, html: { data: { type: :json } }) do |f| %>
-          <%= f.error_notification %>
-
-          <div class="form-inputs">
-            <%= f.input :name, :label => 'Nimi (etunimi sukunimi)' %>
-            <%= f.input :phone, :label => 'Puhelinnumero' %>
-            <%= f.input :email, :label => 'Sähköpostiosoite' %>
-            <% school_collection = School.where(:public => true).to_a << School.new(:id => 9999, :name => 'Muu lukio') %>
-            <%= f.association :school, collection: school_collection, :label => 'Lukio', :prompt => '-- valitse --' %>
-            <div class="input text optional other_school" style="display:none;">
-              <label class="text optional" for="other_school">Muu lukio, mikä</label>
-              <input class="string text optional" id="other_school" name="other_school" type="text">
-            </div>
-            <p style="margin-top:20px;">
-              <a href="/agt2016-matkaehdot" target="_blank">Näytä matkaehdot</a><br />
-              Hyväksymällä ehdot sitoudut allekirjoittamaan lähdön yhteydessä
-              vastuuvapautuslomakkeen ja maksamaan varausmaksun 7 vuorokauden
-              kuluessa ilmoittautumisesta. Varausmaksun maksuohjeet lähetetään antamaasi
-              sähköpostiosoitteeseen.
-            </p>
-            <label><input id="conditions-approved" type="checkbox" /> Hyväksyn ehdot</label>
-          </div>
-
-          <div data-alert class="alert-box secondary radius" id="check-data-error-alert" style="display:none;">
-            <strong>Virhe:</strong> Tarkista että olet täyttänyt kaikki kentät ja hyväksynyt ehdot.
-          </div>
-
-          <div data-alert class="alert-box secondary radius" id="general-error-alert" style="display:none;">
-            <strong>Virhe:</strong> Jos lähetit juuri toisen ilmoittautumisen, yritä hetken kuluttua uudelleen.
-          </div>
-
-          <div class="form-actions">
-            <%= f.button :submit, :value => "Lähetä ilmoittautuminen", :class => "submit-button radius", :'data-disabled-text' => "Lähetetään ilmoittautumista" %>
-          </div>
-        </div>
-
-        <div id="thanks-wrapper" style="display:none;">
-          <p><strong>Kiitos ilmoittautumisestasi!</strong> Antamaasi sähköpostiosoitteeseen
-          lähetetään tarkemmat ohjeet varausmaksun maksamiseen. Viestin
-          saapumisessa kestää muutamia minuutteja. Muista tarkistaa
-          roskapostilaatikko jos viestiä ei kuulu. Ota sähköpostitse yhteyttä
-          osoitteeseen <a href="mailto:info@a8e.fi">info@a8e.fi</a> jos
-          sinulla on kysyttävää.</p>
-          <button class="close-reveal-modal radius">Sulje ikkuna</button>
-        </div>
+        <!-- moved to attendees/new -->
       <% end %>
-    <% end %>
     </div>
   </div>
   <a class="close-reveal-modal">&#215;</a>
