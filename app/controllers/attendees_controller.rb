@@ -11,6 +11,11 @@ class AttendeesController < ApplicationController
     end
 
     @attendees = @attendees.order('created_at DESC')
+
+    respond_to do |format|
+      format.html
+      format.csv { render text: @attendees.to_csv }
+    end
   end
 
   def destroy
