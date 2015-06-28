@@ -2,6 +2,10 @@ Entertainment::Application.routes.draw do
   get 'attendees/logout' => 'application#do_logout'
 
   resources :attendees do
+    collection do
+      get 'mass_mailer'
+      post 'mass_mail_to'
+    end
     member do
       post 'confirm'
       post 'resend_created_mail'
@@ -18,6 +22,12 @@ Entertainment::Application.routes.draw do
   post 'send-message' => 'feedback#send_message'
   get 'agt2016-matkaehdot' => 'welcome#conditions'
 
+
+  require "sidekiq/web"
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'dev' && password == 'dev'
+  end
+  mount Sidekiq::Web, at: "/sidekiq"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

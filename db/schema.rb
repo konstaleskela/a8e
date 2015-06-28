@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417070948) do
+ActiveRecord::Schema.define(version: 20150623163350) do
 
   create_table "attendees", force: true do |t|
     t.string   "name"
@@ -43,11 +43,30 @@ ActiveRecord::Schema.define(version: 20150417070948) do
     t.datetime "updated_at"
   end
 
+  create_table "mass_mails", force: true do |t|
+    t.string   "name"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "subject"
+    t.boolean  "sent"
+  end
+
   create_table "schools", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "public",     default: false
   end
+
+  create_table "sent_mass_mails", force: true do |t|
+    t.integer  "attendee_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "mass_mail_id"
+  end
+
+  add_index "sent_mass_mails", ["attendee_id"], name: "index_sent_mass_mails_on_attendee_id"
+  add_index "sent_mass_mails", ["mass_mail_id"], name: "index_sent_mass_mails_on_mass_mail_id"
 
 end

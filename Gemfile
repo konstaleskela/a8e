@@ -38,6 +38,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'simple_form'
 gem 'reference_number'
+gem 'sidekiq'
+gem 'sinatra', :require => nil
 
 group :development do
   gem 'capistrano-rails'

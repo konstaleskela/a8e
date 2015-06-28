@@ -98,6 +98,54 @@ class AttendeesController < ApplicationController
     redirect_to attendees_path
   end
 
+  def mass_mailer
+    mm = (params[:selected]) ? MassMail.find(params[:selected]) : nil
+    @mm_sent = (mm) ? mm.sent : nil
+    @existing_subject = (mm) ? mm.subject : nil
+    @existing_content = (mm) ? mm.content : nil
+  end
+
+  def mass_mail_create
+    if params.has_key?(:mm_id)
+      mm = MassMail.find(params[:mm_id])
+    else
+      if params[:name].blank?
+        flash[:notice] = {:text => "Viestin nimi ei voi olla tyhjä", :type => "alert" }
+      elsif !MassMail.where(:name => params[:name]).blank?
+        flash[:notice] = {:text => "Viesti on jo olemassa!", :type => "alert" }
+        return nil
+      else
+        mm = MassMail.create(:name => params[:name], :subject => params[:subject], :content => params[:content])
+      end
+    end
+    return mm
+  end
+
+  def mass_mail_test(mm)
+    #mm.send_to(params[:test_recipient])
+    flash[:notice] = {:text => "Esimerkkiviesti lähetettiin onnistuneesti", :type => "info" }
+  end
+
+  def mass_mail_all(mm)
+    if mm && Attendee.mass_mail_to_next(mm)
+      flash[:notice] = {:text => "Massaviestin lähettäminen aloitettiin onnistuneesti", :type => "info" }
+      mm.update_column(:sent, true)
+    else
+      flash[:notice] = {:text => "Lähetys epäonnistui", :type => "alert" }
+    end
+  end
+
+  def mass_mail_to
+    mm = mass_mail_create
+    if params[:test_recipient].blank?
+      mass_mail_all(mm) if mm
+      redirect_to mass_mailer_attendees_path(:selected => mm.id)
+    else
+      mass_mail_test(mm) if mm
+      redirect_to mass_mailer_attendees_path(:selected => mm.id)
+    end
+  end
+
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.

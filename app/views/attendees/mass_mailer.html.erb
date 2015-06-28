@@ -1,0 +1,56 @@
+<div class="row">
+<div class="columns">
+<br />
+
+<% if flash[:notice] %>
+  <div data-alert class="alert-box <%= flash[:notice][:type] %> radius">
+    <%= flash[:notice][:text] %>
+    <a href="#" class="close">&times;</a>
+  </div>
+<% end %>
+
+<div class="large-12" id="available-mails">
+  <% MassMail.all.each do |mm| %>
+  <a style="<%= (mm.id == params[:selected].to_i) ? "text-decoration:underline;" : "text-decoration:line-through;" %>" href="?selected=<%= mm.id %>">
+    <%= mm.name %>
+  </a>
+  &nbsp; | &nbsp;
+  <% end %>
+  <small><a href="<%= mass_mailer_attendees_path %>">Luo uusi viesti</a></small>
+  <hr />
+</div>
+
+<div class="large-12" id="mail-wrapper">
+  <%= form_tag mass_mail_to_attendees_path do %>
+    <% unless params.has_key?(:selected) %>
+    <input type="text" name="name" style="width:100%" placeholder="Viestin nimi" />
+    <% else %>
+    <input type="hidden" name="mm_id" value="<%= params[:selected] %>" />
+    <% end %>
+    <input value="<%= @existing_subject %>" type="text" name="subject" style="width:100%" placeholder="Viestin otsikko" />
+    <textarea name="content" style="width:100%;height:500px" placeholder="Viestin sisältö"><%= @existing_content %></textarea>
+    <% ctxt = "Massaviestin lähettäminen kestää noin muutaman tunnin eikä sitä pysty peruuttamaan. Haluatko varmasti jatkaa?" %>
+    <div style="width:550px;float:right;">
+      <%= submit_tag "Lähetä esimerkki", :id => "submit-as-test", :class => "button secondary right", :style => "display:none; margin-right:10px;" %>
+      <% unless @mm_sent %>
+      <%= submit_tag "Lähetä kaikille", :id => "submit-to-all", :class => "button primary right", :data => { :confirm => ctxt } %>
+      <% end %>
+      <input type="text" id="test-recipient" name="test_recipient" style="float:right; width:200px; margin-right: 10px;" placeholder="Esimerkin vastaanottaja" />
+    </div>
+  <% end %>
+</div>
+
+</div>
+</div>
+<script>
+  $("#test-recipient").on('keyup', function(){
+    if($(this).val().trim() != ""){
+      $("#submit-to-all").hide()
+      $("#submit-as-test").show()
+    } else {
+      $("#submit-to-all").show()
+      $("#submit-as-test").hide()
+    }
+  });
+</script>
+

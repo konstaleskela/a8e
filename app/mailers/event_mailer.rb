@@ -26,4 +26,10 @@ class EventMailer < ActionMailer::Base
     @reference_number = attendee.reference_number
     mail(to: @recipient, subject: 'Abi Goes Tallinn varausmaksu myöhässä')
   end
+
+  def generic_mail(to,subject,content)
+    @content = content
+    mail(to: to, subject: subject)
+  end
+
 end
