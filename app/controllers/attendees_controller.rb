@@ -122,7 +122,7 @@ class AttendeesController < ApplicationController
   end
 
   def mass_mail_test(mm)
-    #mm.send_to(params[:test_recipient])
+    mm.send_to(params[:test_recipient])
     flash[:notice] = {:text => "Esimerkkiviesti lähetettiin onnistuneesti", :type => "info" }
   end
 
