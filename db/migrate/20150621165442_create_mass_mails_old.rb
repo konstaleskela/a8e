@@ -1,4 +1,4 @@
-class CreateMassMails < ActiveRecord::Migration
+class CreateMassMailsOld < ActiveRecord::Migration
   def change
     create_table :mass_mails do |t|
       t.string :mail_name
