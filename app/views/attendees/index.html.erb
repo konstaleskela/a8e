@@ -2,7 +2,7 @@
 <div class="columns">
 <br />
 <div id="listmenu">
-  <a class="<%= @list_confirmed ? "" : "active" %>" href="/attendees">Vahvistamattomat</a> |
+  <a class="<%= @list_confirmed ? "" : "active" %>" href="/attendees" style="text-decoration:line-through">Vahvistamattomat</a> |
   <a class="<%= @list_confirmed ? "active" : "" %>" href="/attendees?confirmed">Vahvistetut</a>
   <p>Kirjaudu ulos sulkemalla selain (kokonaan).</p>
 </div>

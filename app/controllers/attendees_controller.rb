@@ -8,6 +8,7 @@ class AttendeesController < ApplicationController
       @attendees = Attendee.where(:confirmed => true)
     else
       @attendees = Attendee.where(:confirmed => false)
+      return redirect_to attendees_path(:confirmed => true)
     end
 
     @attendees = @attendees.order('created_at DESC')
