@@ -3,11 +3,13 @@ class AttendeesController < ApplicationController
 
   def index
     @list_confirmed = params.has_key?("confirmed")
+    @list_unconfirmed = params.has_key?("unconfirmed")
 
     if @list_confirmed
       @attendees = Attendee.where(:confirmed => true)
-    else
+    elsif @list_unconfirmed
       @attendees = Attendee.where(:confirmed => false)
+    else
       return redirect_to attendees_path(:confirmed => true)
     end
 

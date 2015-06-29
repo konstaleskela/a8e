@@ -7,7 +7,12 @@ class MassMailWorker
     attendee = Attendee.find(attendee_id)
     if SentMassMail.where(:mass_mail => mass_mail, :attendee => attendee).take.blank?
       puts "Send mail!"
-      mass_mail.send_to(attendee.email)
+      begin
+        mass_mail.send_to(attendee.email)
+      rescue
+        puts "Failed mail sending with error #{$!}"
+        puts "TO: #{attendee.email}"
+      end
       attendee.sent_mass_mails << SentMassMail.new(:mass_mail => mass_mail)
     else
       puts "ALREADY SENT! Skipping..."
