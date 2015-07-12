@@ -1,0 +1,83 @@
+<div style="padding:15px 10px;">
+<div class="row">
+  <div class="small-12 xsmall-hide columns"><br /><br /></div>
+</div>
+<%= form_tag extra_info_save_path(:token => params[:token]), :id => 'extra-info', :method => 'post' do %>
+  <div class="row">
+    <div class="small-2 xsmall-hide columns">&nbsp;</div>
+    <div class="small-10 xsmall-full columns end">
+      <div class="row">
+        <div class="small-9 xsmall-full columns">
+          <p>Hei <%= @attendee.name %>,</p>
+          <p>
+            Täytä tähän lomakkeeseen tiedot joita tarvitsemme laskutusta ja hotellivarausta varten.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns">
+          <h3>Syntymäaika</h3>
+        </div>
+        <div class="small-2 xsmall-full columns">
+          <label>Päivä
+            <select name="day" id="day-input">
+              <option value=''>pv</option>
+              <%= options_for_select((1..31).to_a) %>
+            </select>
+          </label>
+        </div>
+        <div class="small-2 xsmall-full columns">
+          <label>Kuukausi
+            <select name="month" id="month-input">
+              <option value=''>kk</option>
+              <%= options_for_select((1..12).to_a) %>
+            </select>
+          </label>
+        </div>
+        <div class="small-5 xsmall-full columns end">
+          <label>Vuosi
+            <select name="year" id="year-input">
+              <option value=''>vuosi</option>
+              <%= options_for_select((1980..2000).to_a) %>
+            </select>
+          </label>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="small-12 columns">
+          <h3>Osoite</h3>
+        </div>
+        <div class="small-9 xsmall-full columns end">
+          <label>Katuosoite
+            <input type="text" placeholder="Katuosoite" name="address" id="address-input" />
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 xsmall-full columns">
+          <label>Postinumero
+            <input type="text" placeholder="Postinumero" name="postnumber" id="postnumber-input" />
+          </label>
+        </div>
+        <div class="small-5 xsmall-full columns end">
+          <label>Postitoimipaikka
+            <input type="text" placeholder="Postitoimipaikka" name="town" id="town-input" />
+          </label>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="small-9 xsmall-full columns">
+          <div data-alert class="alert-box secondary radius" id="check-data-error-alert" style="display:none;">
+            <strong>Virhe:</strong> Tarkista että olet täyttänyt kaikki kentät
+          </div>
+        </div>
+        <div class="large-12 columns">
+          <input type="submit" value="Tallenna tiedot" class="button" />
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

@@ -14,6 +14,10 @@ Entertainment::Application.routes.draw do
     end
   end
 
+  get 'p/saved' => 'attendees#extra_info_saved', :as => :extra_info_saved
+  get 'p/:token' => 'attendees#extra_info_form', :as => :extra_info_form
+  post 'p/:token/save' => 'attendees#extra_info_save', :as => :extra_info_save
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

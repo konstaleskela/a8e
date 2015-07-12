@@ -9,6 +9,8 @@ class Attendee < ActiveRecord::Base
   scope :confirmed, -> { where(confirmed: true) }
   scope :unconfirmed, -> { where(confirmed: false) }
 
+  validates :token, :uniqueness => true
+
   def self.to_csv
     CSV.generate do |csv|
       csv << column_names
@@ -36,6 +38,11 @@ class Attendee < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def generate_token
+    token = [*('a'..'z'),*('0'..'9')].shuffle[0,18].join
+    self.update(:token => token)
   end
 
   def next(skope = :confirmed)

@@ -149,6 +149,50 @@ class AttendeesController < ApplicationController
     end
   end
 
+  def extra_info_form
+    @attendee = Attendee.where(:token => params[:token]).take
+    if !@attendee || !@attendee.town.blank?
+      render :extra_info_error
+    else
+      render :extra_info_form
+    end
+  end
+
+  def extra_info_save
+    @attendee = Attendee.where(:token => params[:token]).take
+    if !@attendee || !@attendee.town.blank?
+      render :extra_info_error
+    else
+      has_error = false
+      ['day','month','year','address','postnumber','town'].each do |k|
+        has_error = true if !params.has_key?(k)
+        has_error = true if !has_error && params[k].blank?
+      end
+      if has_error
+        render :extra_info_error
+      else
+        # raw input data has to be fine at this point
+        # make sure now errors are raised for wrong data
+        year = Integer(params[:year]) rescue nil
+        month = Integer(params[:month]) rescue nil
+        day = Integer(params[:day]) rescue nil
+        dob = nil
+        dob = Date.new(year,month,day) rescue nil if year && month && day
+        if @attendee.update({:dob => dob,
+                          :address => params[:address],
+                          :postnumber => params[:postnumber],
+                          :town => params[:town]})
+          redirect_to :extra_info_saved
+        else
+          render :extra_info_error
+        end
+      end
+    end
+  end
+
+  def extra_info_saved
+  end
+
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -67,3 +67,16 @@ $ ->
     if enable
       btn.attr('disabled',false)
       btn.val(btn.attr('data-enabled-text'))
+
+  $("#extra-info").on 'submit', ->
+    form = $(@)
+    error = false
+    for iname in ['day','month','year','address','postnumber','town']
+      do (iname) ->
+        val = form.find("#"+iname+"-input").val()
+        error = true unless val?
+        error = true if !error and val.trim() is ""
+
+    if error
+      $("#check-data-error-alert").fadeOut(300).fadeIn(300)
+      return false

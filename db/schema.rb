@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623163350) do
+ActiveRecord::Schema.define(version: 20150710153426) do
 
   create_table "attendees", force: true do |t|
     t.string   "name"
@@ -25,6 +25,11 @@ ActiveRecord::Schema.define(version: 20150623163350) do
     t.boolean  "confirmed",        default: false
     t.integer  "late_mails_sent"
     t.integer  "new_price",        default: 0
+    t.date     "dob"
+    t.string   "address"
+    t.string   "town"
+    t.string   "postnumber"
+    t.string   "token"
   end
 
   add_index "attendees", ["event_id"], name: "index_attendees_on_event_id"
