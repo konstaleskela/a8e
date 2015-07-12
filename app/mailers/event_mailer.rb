@@ -28,8 +28,22 @@ class EventMailer < ActionMailer::Base
   end
 
   def generic_mail(to,subject,content)
-    @content = content
-    mail(to: to, subject: subject)
+    mail(to: to, subject: subject) do |format|
+      format.html {
+        @html_content = content
+        # turn two linebreaks to paragraphs
+        @html_content = content.gsub /\r\n\r\n/, ' </p><p>'
+        # turn one linebreak to br
+        @html_content = @html_content.gsub /\r\n/, '<br /> '
+        render :generic_mail
+      }
+      format.text {
+        @text_content = content
+        # turn links into text (linktext: href)
+        @text_content = content.gsub /<a\s*href='(?=[^"]*)([^"]*)'>([^<]*)<\/a>/, '\2: \1'
+        render :generic_mail
+      }
+    end
   end
 
 end

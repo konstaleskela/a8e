@@ -53,6 +53,8 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     connection_pool (2.2.0)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.2.2)
     foundation-rails (5.4.5.0)
@@ -164,6 +166,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   coffee-rails (~> 4.0.0)
+  email_validator
   foundation-rails (~> 5.4.0)
   jbuilder (~> 1.2)
   jquery-rails

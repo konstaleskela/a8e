@@ -36,4 +36,6 @@ Entertainment::Application.configure do
    :authentication => :plain, :enable_starttls_auto => true,
    :user_name => "fiksu@ymme.info", :password => "AG234RWe#qwER32fsZx"
   }
+
+  #config.action_mailer.perform_deliveries = false
 end

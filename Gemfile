@@ -40,6 +40,7 @@ gem 'simple_form'
 gem 'reference_number'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
+gem 'email_validator'
 
 group :development do
   gem 'capistrano-rails'
