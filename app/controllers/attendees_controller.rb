@@ -1,5 +1,5 @@
 class AttendeesController < ApplicationController
-  before_filter :authenticate, :except => [:create]
+  before_filter :authenticate, :except => [:create,:extra_info_form,:extra_info_save,:extra_info_saved,:extra_info_error]
 
   def index
     @list_confirmed = params.has_key?("confirmed")
