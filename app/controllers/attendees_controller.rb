@@ -1,4 +1,5 @@
 class AttendeesController < ApplicationController
+  # extra_info stuff should go through different controller...
   before_filter :authenticate, :except => [:create,:extra_info_form,:extra_info_save,:extra_info_saved,:extra_info_error]
 
   def index
@@ -127,7 +128,7 @@ class AttendeesController < ApplicationController
   def mass_mail_test(mm)
     # HACK to get replace tokens in...
     replace_tokens = {
-      "||EXTRA_INFO_FORM_LINK||" => "<a href='#{extra_info_form_url(:token => "abc")}'>Linkki</a>"
+      "||EXTRA_INFO_FORM_LINK||" => "<a href='http://a8e.fi/p/u2rxvopht8eykc39lj'>Siirry antamaan lisätietoja</a>"
     }
     mm.send_to(params[:test_recipient],replace_tokens)
     flash[:notice] = {:text => "Esimerkkiviesti lähetettiin onnistuneesti", :type => "info" }

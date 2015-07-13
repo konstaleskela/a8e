@@ -28,13 +28,16 @@ class Attendee < ActiveRecord::Base
     recipient_id = nil
     skope = :confirmed
     if last_sent.blank?
-      recipient_id = Attendee.send(skope).first.id if Attendee.send(skope).first
+      recipient_id = Attendee.send(skope).order('created_at ASC').take.id if Attendee.send(skope).first
     else
       recipient_id = last_sent.attendee.next(skope).id if last_sent.attendee.next(skope)
     end
     # perform async in five seconds
     if recipient_id
-      MassMailWorker.perform_in(5.seconds, rand(1000), mass_mail.id, recipient_id)
+      hour = Time.zone.now.hour
+      # only send during 9 - 24 every three minutes to even out the load to sending and server requests
+      time_to_next = (hour < 23 && hour >= 9) ? 4.minutes : 9.hours + 10.minutes
+      MassMailWorker.perform_in(time_to_next, rand(1000), mass_mail.id, recipient_id)
     else
       return false
     end
