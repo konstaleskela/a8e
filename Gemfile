@@ -39,6 +39,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'simple_form'
 gem 'reference_number'
 gem 'sidekiq'
+gem 'sidekiq-failures'
 gem 'sinatra', :require => nil
 gem 'email_validator'
 
