@@ -49,11 +49,11 @@ class Attendee < ActiveRecord::Base
   end
 
   def next(skope = :confirmed)
-    self.class.send(skope).where("created_at >= ? AND id != ?", created_at, id).order("created_at ASC").first
+    Attendee.send(skope).where("created_at >= ? AND id != ?", created_at, id).order("created_at ASC").first
   end
 
   def previous(skope = :confirmed)
-    self.class.send(skope).where("created_at <= ? AND id != ?", created_at, id).order("created_at DESC").first
+    Attendee.send(skope).where("created_at <= ? AND id != ?", created_at, id).order("created_at DESC").first
   end
 
   private
