@@ -2,7 +2,11 @@ Sidekiq::Logging.logger.level = Logger::DEBUG
 
 class MassMailWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => false
+  sidekiq_options :retry => 5
+
+  sidekiq_retries_exhausted do |msg|
+    Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
+  end
 
   def perform(random, mass_mail_id, attendee_id)
     puts "----------------------------"
