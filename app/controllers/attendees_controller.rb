@@ -53,11 +53,15 @@ class AttendeesController < ApplicationController
           end
         end
         @attendee = Attendee.new(valid_params)
+        @attendee.generate_token
         @attendee.new_price = true
         if @attendee.save
           FormSenderCache.create({:address => request.remote_ip, :expires => 1.minute.from_now})
           # added an option to send confirmation (admin only...)
-          if params.has_key?('send_confirmation') && params['send_confirmation'] == "on"
+          if params.has_key?('auto_confirm') && params['auto_confirm'] == "on"
+            @attendee.update_column(:confirmed,true)
+          end
+          if params.has_key?('send_email') && params['send_email'] == "on"
             email = EventMailer.agt2016_attendance_created(@attendee)
             email.deliver
           end

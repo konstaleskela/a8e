@@ -80,3 +80,9 @@ $ ->
     if error
       $("#check-data-error-alert").fadeOut(300).fadeIn(300)
       return false
+
+  # add new form for admins
+  send_email_cb = $("input[name='send_email']")
+  auto_confirm_cb = $("input[name='auto_confirm']")
+  $("input[name='auto_confirm']").on 'change', ->
+    send_email_cb.prop('checked',false) if auto_confirm_cb.is(':checked')
