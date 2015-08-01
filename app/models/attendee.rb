@@ -36,7 +36,7 @@ class Attendee < ActiveRecord::Base
     if recipient_id
       hour = Time.zone.now.hour
       # only send during 9 - 24 every three minutes to even out the load to sending and server requests
-      time_to_next = (hour < 23 && hour >= 9) ? 4.minutes : 9.hours + 10.minutes
+      time_to_next = (hour <= 23 && hour >= 9) ? 4.minutes : 9.hours + 10.minutes
       MassMailWorker.perform_in(time_to_next, rand(1000), mass_mail.id, recipient_id)
     else
       return false
