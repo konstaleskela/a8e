@@ -81,6 +81,14 @@ $ ->
       $("#check-data-error-alert").fadeOut(300).fadeIn(300)
       return false
 
+  # show extra info
+  $(".show-extra-info").on 'click', ->
+    id_to_show = $(@).data('id')
+    elem_to_show = $("tr#extra_info_for_"+id_to_show)
+    if elem_to_show.is(':visible')
+    then elem_to_show.hide()
+    else elem_to_show.show()
+
   # add new form for admins
   send_email_cb = $("input[name='send_email']")
   auto_confirm_cb = $("input[name='auto_confirm']")

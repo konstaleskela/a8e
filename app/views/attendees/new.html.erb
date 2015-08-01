@@ -22,6 +22,12 @@
     <%= f.input :name, :label => 'Nimi (etunimi sukunimi)' %>
     <%= f.input :phone, :label => 'Puhelinnumero' %>
     <%= f.input :email, :label => 'Sähköpostiosoite' %>
+    <%= f.input :dob, :label => 'Syntymäaika', as: :date, start_year: Date.today.year - 25,
+                                 end_year: Date.today.year - 12,
+                                 order: [:day, :month, :year] %>
+    <%= f.input :address, :label => 'Katuosoite' %>
+    <%= f.input :postnumber, :label => 'Postinumero' %>
+    <%= f.input :town, :label => 'Postitoimipaikka' %>
     <% school_collection = School.where(:public => true).to_a << School.new(:id => 9999, :name => 'Muu lukio') %>
     <%= f.association :school, collection: school_collection, :label => 'Lukio', :prompt => '-- valitse --' %>
     <div class="input text optional other_school" style="display:none;">

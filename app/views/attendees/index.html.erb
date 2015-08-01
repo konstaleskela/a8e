@@ -6,27 +6,27 @@
   <a class="<%= @list_confirmed ? "active" : "" %>" href="/attendees?confirmed">Vahvistetut</a>
   <p>Kirjaudu ulos sulkemalla selain (kokonaan).</p>
 </div>
-<table id="attendee-list">
+<table id="attendee-list" style="width:100%">
   <thead>
     <tr>
       <th width="150">Vastaanotettu</th>
       <th width="200">Nimi</th>
-      <th width="100">Koulu</th>
+      <th width="200">Koulu</th>
       <th>Sähköposti</th>
-      <th>Puhelinnumero</th>
       <th width="50">Viite</th>
+      <th>+</th>
       <% unless @list_confirmed %><th></th><% end %>
     </tr>
   </thead>
   <tbody>
     <% @attendees.each do |attendee| %>
       <tr>
-        <td class="date"><%= attendee.created_at.strftime("%F %T") %></td>
+        <td class="date"><%= attendee.created_at.strftime("%d.%m.%Y %T") %></td>
         <td><%= attendee.name %></td>
         <td><%= attendee.school.name if attendee.school %></td>
         <td><%= attendee.email %></td>
-        <td><%= attendee.phone %></td>
         <td><%= attendee.reference_number %></td>
+        <td><a href="javascript:void(0)" class="show-extra-info" data-id="<%= attendee.id %>">+</a></td>
         <% unless @list_confirmed %>
           <td>
             <%= button_to "x", attendee, :method => 'delete', :confirm => "Haluatko varmasti POISTAA TIEDOT LOPULLISESTI", :class => "button tiny secondary", :style => "background-color:transparent;color:#660000;float:right;margin:0 0 7px 0;padding:2px 3px;" %>
@@ -40,6 +40,18 @@
             <% end %>
           </td>
         <% end %>
+      </tr>
+      <tr style="display:none;"></tr>
+      <tr id="extra_info_for_<%= attendee.id %>" style="display:none;">
+        <td colspan="6">
+          <table style="margin:0">
+            <% formatted_dob = (attendee.dob) ? attendee.dob.strftime('%d.%m.%Y') : "-" %>
+            <% formatted_addr = (attendee.town) ? "#{attendee.address}, #{attendee.postnumber} #{attendee.town}" : "-" %>
+            <tr><td>Syntymäaika</td><td><%= formatted_dob %></td></tr>
+            <tr><td>Osoite</td><td><%= formatted_addr %></td></tr>
+            <tr><td>Puhelin</td><td><%= attendee.phone %></td></tr>
+          </table>
+        </td>
       </tr>
     <% end %>
   </tbody>
