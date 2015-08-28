@@ -8,7 +8,7 @@ class Attendee < ActiveRecord::Base
 
   scope :confirmed, -> { where(confirmed: true) }
   scope :unconfirmed, -> { where(confirmed: false) }
-  scope :unanswered, -> { where("dob IS NULL") }
+  scope :confirmed_unanswered, -> { confirmed.where("dob IS NULL") }
 
   validates :token, :uniqueness => true
 
@@ -27,7 +27,7 @@ class Attendee < ActiveRecord::Base
     # next to the last recipient of mass mail or first if none sent.
     last_sent = SentMassMail.where(:mass_mail => mass_mail).last
     recipient_id = nil
-    skope = :unanswered
+    skope = :confirmed_unanswered
     if last_sent.blank?
       recipient_id = Attendee.send(skope).order('created_at ASC').take.id if Attendee.send(skope).first
     else
@@ -36,8 +36,8 @@ class Attendee < ActiveRecord::Base
     # perform async in five seconds
     if recipient_id
       hour = Time.zone.now.hour
-      # only send during 9 - 24 every three minutes to even out the load to sending and server requests
-      time_to_next = (hour <= 23 && hour >= 9) ? 4.minutes : 9.hours + 10.minutes
+      # only send during 9 - 24 every minute to even out the load to sending and server requests
+      time_to_next = (hour <= 23 && hour >= 9) ? 1.minutes : 9.hours + 10.minutes
       MassMailWorker.perform_in(time_to_next, rand(1000), mass_mail.id, recipient_id)
     else
       return false
