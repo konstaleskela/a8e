@@ -131,8 +131,9 @@ class AttendeesController < ApplicationController
 
   def mass_mail_test(mm)
     # HACK to get replace tokens in...
+    extra_info_url = "http://google.com"
     replace_tokens = {
-      "||EXTRA_INFO_FORM_LINK||" => "<a href='http://a8e.fi/p/u2rxvopht8eykc39lj'>Siirry antamaan lisätietoja</a>"
+      "||EXTRA_INFO_FORM_LINK||" => "<a href='#{extra_info_url}'>#{extra_info_url}</a>"
     }
     mm.send_to(params[:test_recipient],replace_tokens)
     flash[:notice] = {:text => "Esimerkkiviesti lähetettiin onnistuneesti", :type => "info" }

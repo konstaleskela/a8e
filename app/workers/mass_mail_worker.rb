@@ -21,7 +21,7 @@ class MassMailWorker
         #above fails with: Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
         extra_info_url = "http://a8e.fi/p/#{attendee.token}"
         replace_tokens = {
-          "||EXTRA_INFO_FORM_LINK||" => "<a href='#{extra_info_url}'>Siirry antamaan lisätietoja</a>"
+          "||EXTRA_INFO_FORM_LINK||" => "<a href='#{extra_info_url}'>#{extra_info_url}</a>"
         }
         recipient_address = attendee.email
         if EmailValidator.valid?(recipient_address)
