@@ -3,31 +3,34 @@
 <br />
 <div id="listmenu">
   <a class="<%= @list_confirmed ? "" : "active" %>" href="/attendees" style="text-decoration:line-through">Vahvistamattomat</a> |
-  <a class="<%= @list_confirmed ? "active" : "" %>" href="/attendees?confirmed">Vahvistetut</a>
+  <a class="<%= @list_confirmed ? "active" : "" %>" href="/attendees?confirmed">Vahvistetut</a> |
+  <a class="<%= @list_confirmed_unanswered ? "active" : "" %>" href="/attendees?confirmed_unanswered">Lomaketiedot täyttämättä</a>
   <p>Kirjaudu ulos sulkemalla selain (kokonaan).</p>
 </div>
 <table id="attendee-list" style="width:100%">
   <thead>
     <tr>
+      <th width="60">n: <%= @attendees.count-1 %></th>
       <th width="150">Vastaanotettu</th>
       <th width="200">Nimi</th>
       <th width="200">Koulu</th>
       <th>Sähköposti</th>
       <th width="50">Viite</th>
       <th>+</th>
-      <% unless @list_confirmed %><th></th><% end %>
+      <% if @unconfirmed_ui %><th></th><% end %>
     </tr>
   </thead>
   <tbody>
-    <% @attendees.each do |attendee| %>
+    <% @attendees.each_with_index do |attendee,index| %>
       <tr>
+        <td>&nbsp;</td>
         <td class="date"><%= attendee.created_at.strftime("%d.%m.%Y %T") %></td>
         <td><%= attendee.name %></td>
         <td><%= attendee.school.name if attendee.school %></td>
         <td><%= attendee.email %></td>
         <td><%= attendee.reference_number %></td>
         <td><a href="javascript:void(0)" class="show-extra-info" data-id="<%= attendee.id %>">+</a></td>
-        <% unless @list_confirmed %>
+        <% if @unconfirmed_ui %>
           <td>
             <%= button_to "x", attendee, :method => 'delete', :confirm => "Haluatko varmasti POISTAA TIEDOT LOPULLISESTI", :class => "button tiny secondary", :style => "background-color:transparent;color:#660000;float:right;margin:0 0 7px 0;padding:2px 3px;" %>
             <%= button_to "Uusi ilmoviesti", resend_created_mail_attendee_path(attendee), :confirm => "Haluatko varmasti LÄHETTÄÄ UUDEN ILMOVIESTIN", :class => "button tiny secondary", :style => "margin-bottom:5px;padding:5px 8px;" %>
