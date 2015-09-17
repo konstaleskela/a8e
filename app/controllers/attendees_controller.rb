@@ -11,7 +11,7 @@ class AttendeesController < ApplicationController
     if @list_confirmed
       @attendees = Attendee.confirmed
     elsif @list_unconfirmed
-      @attendees = Attendee.where(:confirmed => true)
+      @attendees = Attendee.where(:confirmed => false)
     elsif @list_confirmed_unanswered
       @attendees = Attendee.confirmed_unanswered
     else
