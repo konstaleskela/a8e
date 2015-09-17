@@ -9,9 +9,9 @@ class AttendeesController < ApplicationController
     @unconfirmed_ui = true if @list_unconfirmed
 
     if @list_confirmed
-      @attendees = Attendee.where(:confirmed => true)
-    elsif @list_unconfirmed
       @attendees = Attendee.confirmed
+    elsif @list_unconfirmed
+      @attendees = Attendee.where(:confirmed => true)
     elsif @list_confirmed_unanswered
       @attendees = Attendee.confirmed_unanswered
     else
