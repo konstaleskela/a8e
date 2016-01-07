@@ -27,7 +27,7 @@ class Attendee < ActiveRecord::Base
     # next to the last recipient of mass mail or first if none sent.
     last_sent = SentMassMail.where(:mass_mail => mass_mail).last
     recipient_id = nil
-    skope = :confirmed_unanswered
+    skope = :confirmed #_unanswered
     if last_sent.blank?
       recipient_id = Attendee.send(skope).order('created_at ASC').take.id if Attendee.send(skope).first
     else

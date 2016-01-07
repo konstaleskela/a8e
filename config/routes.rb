@@ -4,7 +4,8 @@ Entertainment::Application.routes.draw do
   resources :attendees do
     collection do
       get 'mass_mailer'
-      post 'mass_mail_to'
+      post 'mass_mail_send'
+      post 'mass_mail_update'
     end
     member do
       post 'confirm'

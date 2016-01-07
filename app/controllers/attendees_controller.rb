@@ -133,6 +133,19 @@ class AttendeesController < ApplicationController
     return mm
   end
 
+  def mass_mail_update
+    if params.has_key?(:mm_id)
+      mm = MassMail.find(params[:mm_id])
+      flash[:notice] = {:text => "Viestiä ei löytynyt", :type => "alert" } unless mm
+      flash[:notice] = {:text => "Viestin nimi ei voi olla tyhjä", :type => "alert" } if params[:name].blank?
+      if mm
+        flash[:notice] = {:text => "Viestin teksti päivitettiin onnistuneesti", :type => "info" }
+        mm.update_columns({:subject => params[:subject], :content => params[:content]})
+      end
+    end
+    redirect_to mass_mailer_attendees_path(:selected => mm.id)
+  end
+
   def mass_mail_test(mm)
     # HACK to get replace tokens in...
     extra_info_url = "http://google.com"
@@ -152,7 +165,7 @@ class AttendeesController < ApplicationController
     end
   end
 
-  def mass_mail_to
+  def mass_mail_send
     mm = mass_mail_create
     if params[:test_recipient].blank?
       mass_mail_all(mm) if mm
