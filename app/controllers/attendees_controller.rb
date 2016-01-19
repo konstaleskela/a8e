@@ -115,22 +115,30 @@ class AttendeesController < ApplicationController
     @mm_sent = (mm) ? mm.sent : nil
     @existing_subject = (mm) ? mm.subject : nil
     @existing_content = (mm) ? mm.content : nil
+    @existing_recipients = (mm) ? mm.recipients : nil
   end
 
   def mass_mail_create
     if params.has_key?(:mm_id)
       mm = MassMail.find(params[:mm_id])
+      return mm
     else
       if params[:name].blank?
         flash[:notice] = {:text => "Viestin nimi ei voi olla tyhjä", :type => "alert" }
       elsif !MassMail.where(:name => params[:name]).blank?
         flash[:notice] = {:text => "Viesti on jo olemassa!", :type => "alert" }
-        return nil
       else
-        mm = MassMail.create(:name => params[:name], :subject => params[:subject], :content => params[:content])
+        mm = MassMail.create(
+          :name => params[:name],
+          :subject => params[:subject],
+          :content => params[:content],
+          :recipients => params[:recipients]
+        )
       end
+      mmid = nil
+      mmid = mm.id if mm
+      redirect_to mass_mailer_attendees_path(:selected => mmid)
     end
-    return mm
   end
 
   def mass_mail_update
@@ -140,7 +148,11 @@ class AttendeesController < ApplicationController
       flash[:notice] = {:text => "Viestin nimi ei voi olla tyhjä", :type => "alert" } if params[:name].blank?
       if mm
         flash[:notice] = {:text => "Viestin teksti päivitettiin onnistuneesti", :type => "info" }
-        mm.update_columns({:subject => params[:subject], :content => params[:content]})
+        mm.update_columns({
+          :subject => params[:subject],
+          :content => params[:content],
+          :recipients => params[:recipients]
+        })
       end
     end
     redirect_to mass_mailer_attendees_path(:selected => mm.id)

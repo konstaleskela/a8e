@@ -6,6 +6,7 @@ Entertainment::Application.routes.draw do
       get 'mass_mailer'
       post 'mass_mail_send'
       post 'mass_mail_update'
+      post 'mass_mail_create'
     end
     member do
       post 'confirm'

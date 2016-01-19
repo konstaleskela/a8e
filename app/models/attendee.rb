@@ -29,16 +29,31 @@ class Attendee < ActiveRecord::Base
     recipient_id = nil
     skope = :confirmed #_unanswered
     if last_sent.blank?
-      recipient_id = Attendee.send(skope).order('created_at ASC').take.id if Attendee.send(skope).first
+      recipient = Attendee.send(skope).order('created_at ASC').take if Attendee.send(skope).first
+      recipient_id = recipient.id if recipient
     else
-      recipient_id = last_sent.attendee.next(skope).id if last_sent.attendee.next(skope)
+      recipient = last_sent.attendee.next(skope) if last_sent.attendee.next(skope)
+      recipient_id = recipient.id if recipient
+    end
+    # only send during 9 - 24 every minute to even out the load to sending and server requests
+    hour = Time.zone.now.hour
+    time_to_next = (hour <= 23 && hour >= 9) ? 1.minutes : 9.hours + 10.minutes
+    # see if in recipient list
+    skip = false
+    if recipient && mass_mail.recipients
+      recipients = mass_mail.recipients.split("\n")
+      recipients.map!{|e| e.strip}
+      unless recipients.include?(recipient.email)
+        skip = true
+        time_to_next = 1.seconds
+      end
+      #if recipients.each do
+      #recipient_id
     end
     # perform async in five seconds
-    if recipient_id
-      hour = Time.zone.now.hour
-      # only send during 9 - 24 every minute to even out the load to sending and server requests
-      time_to_next = (hour <= 23 && hour >= 9) ? 1.minutes : 9.hours + 10.minutes
-      MassMailWorker.perform_in(time_to_next, rand(1000), mass_mail.id, recipient_id)
+    if recipient && recipient_id
+      puts "BEGIN SENDING TO #{recipient.email}"
+      MassMailWorker.perform_in(time_to_next, rand(1000), mass_mail.id, recipient_id, skip)
     else
       return false
     end

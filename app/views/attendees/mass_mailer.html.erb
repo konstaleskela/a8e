@@ -21,19 +21,22 @@
 </div>
 
 <div class="large-12">
-  <%= form_tag mass_mail_update_attendees_path do %>
+  <%= form_tag params.has_key?(:selected) ? mass_mail_update_attendees_path : mass_mail_create_attendees_path do %>
     <% unless params.has_key?(:selected) %>
     <input type="text" name="name" style="width:100%" placeholder="Viestin nimi" />
+    <% else %>
+    <input type="hidden" name="mm_id" value="<%= params[:selected] %>" />
     <% end %>
     <input value="<%= @existing_subject %>" type="text" name="subject" style="width:100%" placeholder="Viestin otsikko" />
     <textarea name="content" style="width:100%;height:500px" placeholder="Viestin sisältö"><%= @existing_content %></textarea>
-    <input type="hidden" name="mm_id" value="<%= params[:selected] %>" />
+    <textarea name="recipients" style="width:100%;height:100px" placeholder="Vastaanottajat"><%= @existing_recipients %></textarea>
     <%= submit_tag "Päivitä teksti", :id => "update-text", :class => "button secondary right", :style => "margin-left: 10px;margin-bottom:10px;" %>
   <% end %>
 
   <%= form_tag mass_mail_send_attendees_path do %>
     <input value="<%= @existing_subject %>" type="hidden" name="subject" />
     <input value="<%= @existing_content %>" type="hidden" name="content" />
+    <input value="<%= @existing_recipients %>" type="hidden" name="recipients" />
     <input type="hidden" name="mm_id" value="<%= params[:selected] %>" />
     <% ctxt = "Massaviestin lähettäminen kestää useamman tunnin eikä sitä pysty peruuttamaan. Haluatko varmasti jatkaa?" %>
     <% unless @mm_sent %>
@@ -47,6 +50,7 @@
   <%= form_tag mass_mail_send_attendees_path do %>
     <input value="<%= @existing_subject %>" type="hidden" name="subject" />
     <input value="<%= @existing_content %>" type="hidden" name="content" />
+    <input value="<%= @existing_recipients %>" type="hidden" name="recipients" />
     <input type="hidden" name="mm_id" value="<%= params[:selected] %>" />
     <div style="width:550px;float:right;">
       <%= submit_tag "Lähetä esimerkki", :id => "submit-as-test", :class => "button secondary right", :style => "display:none;" %>
