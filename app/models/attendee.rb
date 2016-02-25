@@ -40,7 +40,7 @@ class Attendee < ActiveRecord::Base
     time_to_next = (hour <= 23 && hour >= 9) ? 1.minutes : 9.hours + 10.minutes
     # see if in recipient list
     skip = false
-    if recipient && mass_mail.recipients
+    if recipient && mass_mail.recipients && !mm.recipients.strip.blank?
       recipients = mass_mail.recipients.split("\n")
       recipients.map!{|e| e.strip}
       unless recipients.include?(recipient.email)
