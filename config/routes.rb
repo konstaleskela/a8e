@@ -26,7 +26,7 @@ Entertainment::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   post 'send-message' => 'feedback#send_message'
-  get 'agt2016-matkaehdot' => 'welcome#conditions'
+  get 'agt-matkaehdot' => 'welcome#conditions'
 
 
   require "sidekiq/web"
